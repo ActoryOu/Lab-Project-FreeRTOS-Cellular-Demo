@@ -13,3 +13,9 @@
 [submodule "lib/backoff_algorithm"]
 	path = lib/backoff_algorithm
 	url = https://github.com/FreeRTOS/backoffAlgorithm
+[submodule "lib/FreeRTOS-Libraries-Integration-Tests"]
+	path = lib/FreeRTOS-Libraries-Integration-Tests
+	url = https://github.com/FreeRTOS/FreeRTOS-Libraries-Integration-Tests
+[submodule "lib/ThirdParty/Unity"]
+	path = lib/ThirdParty/Unity
+	url = https://github.com/ThrowTheSwitch/Unity
