@@ -9,7 +9,7 @@
 	url = https://github.com/ARMmbed/mbedtls
 [submodule "lib/cellular"]
 	path = lib/cellular
-	url = https://github.com/FreeRTOS/Lab-Project-FreeRTOS-Cellular-Library
+	url = https://github.com/ActoryOu/FreeRTOS-Cellular-Interface
 [submodule "lib/backoff_algorithm"]
 	path = lib/backoff_algorithm
 	url = https://github.com/FreeRTOS/backoffAlgorithm
