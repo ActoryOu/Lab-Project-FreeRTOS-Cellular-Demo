@@ -1,0 +1,283 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="lib">
+      <UniqueIdentifier>{525fb155-a1a7-46a1-b777-d3fcdacc7277}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="lib\cellular">
+      <UniqueIdentifier>{6316d7af-fda2-4c3c-bed2-ecb027f2a5a8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="lib\cellular\modules">
+      <UniqueIdentifier>{ab3b24d4-df9b-45e0-8ecc-98915add026b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="lib\FreeRTOS">
+      <UniqueIdentifier>{e9fe61c2-af65-4800-821c-4f37616f50c7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="source">
+      <UniqueIdentifier>{fdde7623-f419-457e-ad4b-7fce3c81dcf2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="lib\FreeRTOS\include">
+      <UniqueIdentifier>{491d0733-1e8c-4a8f-b8e9-b3a9cab34913}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="lib\FreeRTOS\portable">
+      <UniqueIdentifier>{5e3174b8-3a7e-4c39-a85e-abee2d1b6779}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="source\coreMQTT">
+      <UniqueIdentifier>{93d228e3-e7d3-48e4-8ab9-6773eab0a2b3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="source\FreeRTOS">
+      <UniqueIdentifier>{17607364-814f-404c-ae9e-7832ed604bf0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="source\cellular">
+      <UniqueIdentifier>{7006a8e9-3bd5-4473-944e-bcb717192bf8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="lib\ThirdParty">
+      <UniqueIdentifier>{57475036-8704-402f-84cf-920dcd8ff25e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="lib\cellular\source">
+      <UniqueIdentifier>{55f59079-24ed-4e35-892b-4767fe17790f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="lib\cellular\source\include">
+      <UniqueIdentifier>{af534b12-422c-4433-a1af-f8dd15e6d820}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="lib\cellular\source\interface">
+      <UniqueIdentifier>{847196f4-20b2-4891-9776-64e2842487c8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="lib\cellular\source\include\common">
+      <UniqueIdentifier>{fbb3a328-39cd-438d-b19f-f61e9216f5bd}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="lib\cellular\source\include\private">
+      <UniqueIdentifier>{9a77e3ed-0964-44bf-983b-d1b23695ba24}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="source\transport">
+      <UniqueIdentifier>{d6cbe3ad-f76f-4837-b1b3-f70f31e7665f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="lib\FreeRTOS-Libraries-Integration-Tests">
+      <UniqueIdentifier>{e70d8e99-1211-4ce9-8c04-65a42060c1e2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="lib\ThirdParty\unity">
+      <UniqueIdentifier>{c06ced9f-7111-4448-bed6-5484f4bd799d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="lib\coreMQTT">
+      <UniqueIdentifier>{16418df5-f7a9-49bd-883a-e12466a44256}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="lib\cellular\modules\bg96">
+      <UniqueIdentifier>{ccf4cbf5-29fa-4f40-8f2c-d58582980ec0}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\..\lib\FreeRTOS\include\queue.h">
+      <Filter>lib\FreeRTOS\include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\lib\FreeRTOS\include\semphr.h">
+      <Filter>lib\FreeRTOS\include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\lib\FreeRTOS\include\task.h">
+      <Filter>lib\FreeRTOS\include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\lib\FreeRTOS\include\timers.h">
+      <Filter>lib\FreeRTOS\include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\lib\FreeRTOS\include\event_groups.h">
+      <Filter>lib\FreeRTOS\include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\lib\FreeRTOS\include\FreeRTOS.h">
+      <Filter>lib\FreeRTOS\include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\lib\FreeRTOS\include\projdefs.h">
+      <Filter>lib\FreeRTOS\include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\lib\FreeRTOS\portable\MSVC-MingW\portmacro.h">
+      <Filter>lib\FreeRTOS\include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\lib\FreeRTOS\include\portable.h">
+      <Filter>lib\FreeRTOS\include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\source\demo_config.h">
+      <Filter>source</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\source\logging_levels.h">
+      <Filter>source</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\source\logging_stack.h">
+      <Filter>source</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\source\coreMQTT\sockets_wrapper.h">
+      <Filter>source\coreMQTT</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\source\FreeRTOS\FreeRTOSConfig.h">
+      <Filter>source\FreeRTOS</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\source\cellular\cellular_platform.h">
+      <Filter>source\cellular</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\source\cellular\bg96\cellular_config.h">
+      <Filter>source\cellular</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\lib\cellular\source\include\cellular_api.h">
+      <Filter>lib\cellular\source\include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\lib\cellular\source\include\cellular_config_defaults.h">
+      <Filter>lib\cellular\source\include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\lib\cellular\source\include\cellular_types.h">
+      <Filter>lib\cellular\source\include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\lib\cellular\source\include\common\cellular_at_core.h">
+      <Filter>lib\cellular\source\include\common</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\lib\cellular\source\include\common\cellular_common.h">
+      <Filter>lib\cellular\source\include\common</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\lib\cellular\source\include\common\cellular_common_api.h">
+      <Filter>lib\cellular\source\include\common</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\lib\cellular\source\include\common\cellular_common_portable.h">
+      <Filter>lib\cellular\source\include\common</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\lib\cellular\source\include\private\cellular_common_internal.h">
+      <Filter>lib\cellular\source\include\private</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\lib\cellular\source\include\private\cellular_internal.h">
+      <Filter>lib\cellular\source\include\private</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\lib\cellular\source\include\private\cellular_pkthandler_internal.h">
+      <Filter>lib\cellular\source\include\private</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\lib\cellular\source\include\private\cellular_pktio_internal.h">
+      <Filter>lib\cellular\source\include\private</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\lib\cellular\source\interface\cellular_comm_interface.h">
+      <Filter>lib\cellular\source\interface</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\source\transport\using_plaintext_udp.h">
+      <Filter>source\transport</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\lib\FreeRTOS-Libraries-Integration-Tests\src\qualification_test.h">
+      <Filter>lib\FreeRTOS-Libraries-Integration-Tests</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\lib\FreeRTOS-Libraries-Integration-Tests\src\transport_interface\transport_interface_test.h">
+      <Filter>lib\FreeRTOS-Libraries-Integration-Tests</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\lib\FreeRTOS-Libraries-Integration-Tests\src\common\network_connection.h">
+      <Filter>lib\FreeRTOS-Libraries-Integration-Tests</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\lib\FreeRTOS-Libraries-Integration-Tests\src\common\platform_function.h">
+      <Filter>lib\FreeRTOS-Libraries-Integration-Tests</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\lib\ThirdParty\Unity\src\unity.h">
+      <Filter>lib\ThirdParty\unity</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\lib\ThirdParty\Unity\src\unity_internals.h">
+      <Filter>lib\ThirdParty\unity</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\lib\ThirdParty\Unity\extras\fixture\src\unity_fixture.h">
+      <Filter>lib\ThirdParty\unity</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\lib\ThirdParty\Unity\extras\fixture\src\unity_fixture_internals.h">
+      <Filter>lib\ThirdParty\unity</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\lib\ThirdParty\Unity\extras\memory\src\unity_memory.h">
+      <Filter>lib\ThirdParty\unity</Filter>
+    </ClInclude>
+    <ClInclude Include="test_param_config.h" />
+    <ClInclude Include="test_execution_config.h" />
+    <ClInclude Include="..\..\lib\coreMQTT\source\interface\transport_interface.h">
+      <Filter>lib\coreMQTT</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\lib\cellular\modules\bg96\cellular_bg96.h">
+      <Filter>lib\cellular\modules\bg96</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\..\lib\FreeRTOS\tasks.c">
+      <Filter>lib\FreeRTOS</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\lib\FreeRTOS\timers.c">
+      <Filter>lib\FreeRTOS</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\lib\FreeRTOS\event_groups.c">
+      <Filter>lib\FreeRTOS</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\lib\FreeRTOS\list.c">
+      <Filter>lib\FreeRTOS</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\lib\FreeRTOS\queue.c">
+      <Filter>lib\FreeRTOS</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\lib\FreeRTOS\stream_buffer.c">
+      <Filter>lib\FreeRTOS</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\lib\FreeRTOS\portable\MSVC-MingW\port.c">
+      <Filter>lib\FreeRTOS\portable</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\lib\FreeRTOS\portable\MemMang\heap_4.c">
+      <Filter>lib\FreeRTOS\portable</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\source\cellular_setup.c">
+      <Filter>source</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\source\coreMQTT\sockets_wrapper.c">
+      <Filter>source\coreMQTT</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\source\cellular\comm_if_windows.c">
+      <Filter>source\cellular</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\source\cellular\cellular_platform.c">
+      <Filter>source\cellular</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\lib\cellular\source\cellular_3gpp_api.c">
+      <Filter>lib\cellular\source</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\lib\cellular\source\cellular_3gpp_urc_handler.c">
+      <Filter>lib\cellular\source</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\lib\cellular\source\cellular_at_core.c">
+      <Filter>lib\cellular\source</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\lib\cellular\source\cellular_common.c">
+      <Filter>lib\cellular\source</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\lib\cellular\source\cellular_common_api.c">
+      <Filter>lib\cellular\source</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\lib\cellular\source\cellular_pkthandler.c">
+      <Filter>lib\cellular\source</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\lib\cellular\source\cellular_pktio.c">
+      <Filter>lib\cellular\source</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\source\transport\using_plaintext_udp.c">
+      <Filter>source\transport</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\lib\FreeRTOS-Libraries-Integration-Tests\src\qualification_test.c">
+      <Filter>lib\FreeRTOS-Libraries-Integration-Tests</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\lib\FreeRTOS-Libraries-Integration-Tests\src\transport_interface\transport_interface_test.c">
+      <Filter>lib\FreeRTOS-Libraries-Integration-Tests</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\lib\ThirdParty\Unity\src\unity.c">
+      <Filter>lib\ThirdParty\unity</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\lib\ThirdParty\Unity\extras\fixture\src\unity_fixture.c">
+      <Filter>lib\ThirdParty\unity</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\lib\ThirdParty\Unity\extras\memory\src\unity_memory.c">
+      <Filter>lib\ThirdParty\unity</Filter>
+    </ClCompile>
+    <ClCompile Include="TransportTestExample.c" />
+    <ClCompile Include="main.c" />
+    <ClCompile Include="..\..\lib\cellular\modules\bg96\cellular_bg96.c">
+      <Filter>lib\cellular\modules\bg96</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\lib\cellular\modules\bg96\cellular_bg96_api.c">
+      <Filter>lib\cellular\modules\bg96</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\lib\cellular\modules\bg96\cellular_bg96_urc_handler.c">
+      <Filter>lib\cellular\modules\bg96</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\lib\cellular\modules\bg96\cellular_bg96_wrapper.c">
+      <Filter>lib\cellular\modules\bg96</Filter>
+    </ClCompile>
+  </ItemGroup>
+</Project>

@@ -928,3 +928,171 @@ int32_t Sockets_Send( Socket_t xSocket,
 }
 
 /*-----------------------------------------------------------*/
+
+BaseType_t Sockets_Udp_Connect(Socket_t* pUdpSocket,
+    const char* pHostName,
+    uint16_t port,
+    uint32_t receiveTimeoutMs,
+    uint32_t sendTimeoutMs)
+{
+    CellularSocketHandle_t cellularSocketHandle = NULL;
+    cellularSocketWrapper_t* pCellularSocketContext = NULL;
+    CellularError_t cellularSocketStatus = CELLULAR_INVALID_HANDLE;
+
+    CellularSocketAddress_t serverAddress = { 0 };
+    EventBits_t waitEventBits = 0;
+    BaseType_t retConnect = SOCKETS_ERROR_NONE;
+    const uint32_t defaultReceiveTimeoutMs = CELLULAR_SOCKET_RECV_TIMEOUT_MS;
+
+    /* Create a new UDP socket. */
+    cellularSocketStatus = Cellular_CreateSocket(CellularHandle,
+        CellularSocketPdnContextId,
+        CELLULAR_SOCKET_DOMAIN_AF_INET,
+        CELLULAR_SOCKET_TYPE_DGRAM,
+        CELLULAR_SOCKET_PROTOCOL_UDP,
+        &cellularSocketHandle);
+
+    if (cellularSocketStatus != CELLULAR_SUCCESS)
+    {
+        IotLogError("Failed to create cellular sockets. %d", cellularSocketStatus);
+        retConnect = SOCKETS_SOCKET_ERROR;
+    }
+
+    /* Allocate socket context. */
+    if (retConnect == SOCKETS_ERROR_NONE)
+    {
+        pCellularSocketContext = pvPortMalloc(sizeof(cellularSocketWrapper_t));
+
+        if (pCellularSocketContext == NULL)
+        {
+            IotLogError("Failed to allocate new socket context.");
+            (void)Cellular_SocketClose(CellularHandle, cellularSocketHandle);
+            retConnect = SOCKETS_ENOMEM;
+        }
+        else
+        {
+            /* Initialize all the members to sane values. */
+            IotLogDebug("Created CELLULAR Socket %p.", pCellularSocketContext);
+            (void)memset(pCellularSocketContext, 0, sizeof(cellularSocketWrapper_t));
+            pCellularSocketContext->cellularSocketHandle = cellularSocketHandle;
+            pCellularSocketContext->ulFlags |= CELLULAR_SOCKET_OPEN_FLAG;
+            pCellularSocketContext->socketEventGroupHandle = NULL;
+        }
+    }
+
+    /* Allocate event group for callback function. */
+    if (retConnect == SOCKETS_ERROR_NONE)
+    {
+        pCellularSocketContext->socketEventGroupHandle = xEventGroupCreate();
+
+        if (pCellularSocketContext->socketEventGroupHandle == NULL)
+        {
+            IotLogError("Failed create cellular socket eventGroupHandle %p.", pCellularSocketContext);
+            retConnect = SOCKETS_ENOMEM;
+        }
+    }
+
+    /* Register cellular socket callback function. */
+    if (retConnect == SOCKETS_ERROR_NONE)
+    {
+        serverAddress.ipAddress.ipAddressType = CELLULAR_IP_ADDRESS_V4;
+        strncpy(serverAddress.ipAddress.ipAddress, pHostName, CELLULAR_IP_ADDRESS_MAX_SIZE);
+        serverAddress.port = port;
+
+        IotLogDebug("Ip address %s port %d\r\n", serverAddress.ipAddress.ipAddress, serverAddress.port);
+        retConnect = prvCellularSocketRegisterCallback(cellularSocketHandle, pCellularSocketContext);
+    }
+
+    /* Setup cellular socket recv AT command default timeout. */
+    if (retConnect == SOCKETS_ERROR_NONE)
+    {
+        cellularSocketStatus = Cellular_SocketSetSockOpt(CellularHandle,
+            cellularSocketHandle,
+            CELLULAR_SOCKET_OPTION_LEVEL_TRANSPORT,
+            CELLULAR_SOCKET_OPTION_RECV_TIMEOUT,
+            (const uint8_t*)&defaultReceiveTimeoutMs,
+            sizeof(uint32_t));
+
+        if (cellularSocketStatus != CELLULAR_SUCCESS)
+        {
+            IotLogError("Failed to setup cellular AT command receive timeout %d.", cellularSocketStatus);
+            retConnect = SOCKETS_SOCKET_ERROR;
+        }
+    }
+
+    /* Setup cellular socket send/recv timeout. */
+    if (retConnect == SOCKETS_ERROR_NONE)
+    {
+        retConnect = prvSetupSocketSendTimeout(pCellularSocketContext, pdMS_TO_TICKS(sendTimeoutMs));
+    }
+
+    if (retConnect == SOCKETS_ERROR_NONE)
+    {
+        retConnect = prvSetupSocketRecvTimeout(pCellularSocketContext, pdMS_TO_TICKS(receiveTimeoutMs));
+    }
+
+    /* Cellular socket connect. */
+    if (retConnect == SOCKETS_ERROR_NONE)
+    {
+        (void)xEventGroupClearBits(pCellularSocketContext->socketEventGroupHandle,
+            SOCKET_DATA_RECEIVED_CALLBACK_BIT | SOCKET_OPEN_FAILED_CALLBACK_BIT);
+        cellularSocketStatus = Cellular_SocketConnect(CellularHandle, cellularSocketHandle, CELLULAR_SOCKET_ACCESS_MODE, &serverAddress);
+
+        if (cellularSocketStatus != CELLULAR_SUCCESS)
+        {
+            IotLogError("Failed to establish new connection. Socket status %d.", cellularSocketStatus);
+            retConnect = SOCKETS_SOCKET_ERROR;
+        }
+    }
+
+    /* Wait the socket connection. */
+    if (retConnect == SOCKETS_ERROR_NONE)
+    {
+        waitEventBits = xEventGroupWaitBits(pCellularSocketContext->socketEventGroupHandle,
+            SOCKET_OPEN_CALLBACK_BIT | SOCKET_OPEN_FAILED_CALLBACK_BIT,
+            pdTRUE,
+            pdFALSE,
+            CELLULAR_SOCKET_OPEN_TIMEOUT_TICKS);
+
+        if (waitEventBits != SOCKET_OPEN_CALLBACK_BIT)
+        {
+            IotLogError("Socket connect timeout.");
+            retConnect = SOCKETS_ENOTCONN;
+        }
+    }
+
+    /* Cleanup the socket if any error. */
+    if (retConnect != SOCKETS_ERROR_NONE)
+    {
+        if (cellularSocketHandle != NULL)
+        {
+            (void)Cellular_SocketClose(CellularHandle, cellularSocketHandle);
+            (void)Cellular_SocketRegisterDataReadyCallback(CellularHandle, cellularSocketHandle, NULL, NULL);
+            (void)Cellular_SocketRegisterSocketOpenCallback(CellularHandle, cellularSocketHandle, NULL, NULL);
+            (void)Cellular_SocketRegisterClosedCallback(CellularHandle, cellularSocketHandle, NULL, NULL);
+
+            if (pCellularSocketContext != NULL)
+            {
+                pCellularSocketContext->cellularSocketHandle = NULL;
+            }
+        }
+
+        if ((pCellularSocketContext != NULL) && (pCellularSocketContext->socketEventGroupHandle != NULL))
+        {
+            vEventGroupDelete(pCellularSocketContext->socketEventGroupHandle);
+            pCellularSocketContext->socketEventGroupHandle = NULL;
+        }
+
+        if (pCellularSocketContext != NULL)
+        {
+            vPortFree(pCellularSocketContext);
+            pCellularSocketContext = NULL;
+        }
+    }
+
+    *pUdpSocket = pCellularSocketContext;
+
+    return retConnect;
+}
+
+/*-----------------------------------------------------------*/

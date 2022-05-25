@@ -133,4 +133,23 @@ int32_t Sockets_Recv( Socket_t xSocket,
                       void * pvBuffer,
                       size_t xBufferLength );
 
+/**
+ * @brief Establish a UDP connection to server.
+ *
+ * @param[out] pUdpSocket The output parameter to return the created socket descriptor.
+ * @param[in] pHostName Server hostname to connect to.
+ * @param[in] pServerInfo Server port to connect to.
+ * @param[in] receiveTimeoutMs Timeout (in milliseconds) for transport receive.
+ * @param[in] sendTimeoutMs Timeout (in milliseconds) for transport send.
+ *
+ * @note A timeout of 0 means infinite timeout.
+ *
+ * @return Non-zero value on error, 0 on success.
+ */
+BaseType_t Sockets_Udp_Connect(Socket_t* pUdpSocket,
+    const char* pHostName,
+    uint16_t port,
+    uint32_t receiveTimeoutMs,
+    uint32_t sendTimeoutMs);
+
 #endif /* ifndef SOCKETS_WRAPPER_H */
