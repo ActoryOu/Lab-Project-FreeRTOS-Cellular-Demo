@@ -45,7 +45,7 @@
  *
  * #define TRANSPORT_INTERFACE_TEST_ENABLED  (0)
  */
-#define TRANSPORT_INTERFACE_TEST_ENABLED  (1)
+#define TRANSPORT_INTERFACE_TEST_ENABLED    ( 1 )
 
 /**
  * @brief Configuration to enable the OTA PAL test.

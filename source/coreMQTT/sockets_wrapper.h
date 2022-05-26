@@ -146,10 +146,10 @@ int32_t Sockets_Recv( Socket_t xSocket,
  *
  * @return Non-zero value on error, 0 on success.
  */
-BaseType_t Sockets_Udp_Connect(Socket_t* pUdpSocket,
-    const char* pHostName,
-    uint16_t port,
-    uint32_t receiveTimeoutMs,
-    uint32_t sendTimeoutMs);
+BaseType_t Sockets_Udp_Connect( Socket_t * pUdpSocket,
+                                const char * pHostName,
+                                uint16_t port,
+                                uint32_t receiveTimeoutMs,
+                                uint32_t sendTimeoutMs );
 
 #endif /* ifndef SOCKETS_WRAPPER_H */

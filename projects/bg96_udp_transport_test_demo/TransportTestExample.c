@@ -83,7 +83,7 @@ void RunTransportTestTask( void * pvParameters );
  */
 struct NetworkContext
 {
-    PlaintextTransportParams_t* pParams;
+    PlaintextTransportParams_t * pParams;
 };
 
 typedef struct TaskParam
@@ -91,7 +91,7 @@ typedef struct TaskParam
     StaticSemaphore_t joinMutexBuffer;
     SemaphoreHandle_t joinMutexHandle;
     FRTestThreadFunction_t threadFunc;
-    void* pParam;
+    void * pParam;
     TaskHandle_t taskHandle;
 } TaskParam_t;
 
@@ -102,46 +102,46 @@ NetworkContext_t xSecondNetworkContext;
 PlaintextTransportParams_t xSecondTransportParams = { 0 };
 TransportInterface_t xTransport;
 
-static void ThreadWrapper(void* pParam)
+static void ThreadWrapper( void * pParam )
 {
-    TaskParam_t* pTaskParam = pParam;
+    TaskParam_t * pTaskParam = pParam;
 
-    if ((pTaskParam != NULL) && (pTaskParam->threadFunc != NULL) && (pTaskParam->joinMutexHandle != NULL))
+    if( ( pTaskParam != NULL ) && ( pTaskParam->threadFunc != NULL ) && ( pTaskParam->joinMutexHandle != NULL ) )
     {
-        pTaskParam->threadFunc(pTaskParam->pParam);
+        pTaskParam->threadFunc( pTaskParam->pParam );
 
         /* Give the mutex. */
-        xSemaphoreGive(pTaskParam->joinMutexHandle);
+        xSemaphoreGive( pTaskParam->joinMutexHandle );
     }
 
-    vTaskDelete(NULL);
+    vTaskDelete( NULL );
 }
 
 /*-----------------------------------------------------------*/
 
-FRTestThreadHandle_t FRTest_ThreadCreate(FRTestThreadFunction_t threadFunc,
-    void* pParam)
+FRTestThreadHandle_t FRTest_ThreadCreate( FRTestThreadFunction_t threadFunc,
+                                          void * pParam )
 {
-    TaskParam_t* pTaskParam = NULL;
+    TaskParam_t * pTaskParam = NULL;
     FRTestThreadHandle_t threadHandle = NULL;
     BaseType_t xReturned;
 
-    pTaskParam = malloc(sizeof(TaskParam_t));
-    configASSERT(pTaskParam != NULL);
+    pTaskParam = malloc( sizeof( TaskParam_t ) );
+    configASSERT( pTaskParam != NULL );
 
-    pTaskParam->joinMutexHandle = xSemaphoreCreateBinaryStatic(&pTaskParam->joinMutexBuffer);
-    configASSERT(pTaskParam->joinMutexHandle != NULL);
+    pTaskParam->joinMutexHandle = xSemaphoreCreateBinaryStatic( &pTaskParam->joinMutexBuffer );
+    configASSERT( pTaskParam->joinMutexHandle != NULL );
 
     pTaskParam->threadFunc = threadFunc;
     pTaskParam->pParam = pParam;
 
-    xReturned = xTaskCreate(ThreadWrapper,          /* Task code. */
-                            "ThreadWrapper",        /* All tasks have same name. */
-                            4096,                   /* Task stack size. */
-                            pTaskParam,             /* Where the task writes its result. */
-                            tskIDLE_PRIORITY,       /* Task priority. */
-        &pTaskParam->taskHandle);
-    configASSERT(xReturned == pdPASS);
+    xReturned = xTaskCreate( ThreadWrapper,    /* Task code. */
+                             "ThreadWrapper",  /* All tasks have same name. */
+                             4096,             /* Task stack size. */
+                             pTaskParam,       /* Where the task writes its result. */
+                             tskIDLE_PRIORITY, /* Task priority. */
+                             &pTaskParam->taskHandle );
+    configASSERT( xReturned == pdPASS );
 
     threadHandle = pTaskParam;
 
@@ -150,22 +150,23 @@ FRTestThreadHandle_t FRTest_ThreadCreate(FRTestThreadFunction_t threadFunc,
 
 /*-----------------------------------------------------------*/
 
-int FRTest_ThreadTimedJoin(FRTestThreadHandle_t threadHandle,
-    uint32_t timeoutMs)
+int FRTest_ThreadTimedJoin( FRTestThreadHandle_t threadHandle,
+                            uint32_t timeoutMs )
 {
-    TaskParam_t* pTaskParam = threadHandle;
+    TaskParam_t * pTaskParam = threadHandle;
     BaseType_t xReturned;
     int retValue = 0;
 
     /* Check the parameters. */
-    configASSERT(pTaskParam != NULL);
-    configASSERT(pTaskParam->joinMutexHandle != NULL);
+    configASSERT( pTaskParam != NULL );
+    configASSERT( pTaskParam->joinMutexHandle != NULL );
 
     /* Wait for the thread. */
-    xReturned = xSemaphoreTake(pTaskParam->joinMutexHandle, pdMS_TO_TICKS(timeoutMs));
-    if (xReturned != pdTRUE)
+    xReturned = xSemaphoreTake( pTaskParam->joinMutexHandle, pdMS_TO_TICKS( timeoutMs ) );
+
+    if( xReturned != pdTRUE )
     {
-        LogError(("Waiting thread exist failed after %u %d. Task abort.", timeoutMs, xReturned));
+        LogError( ( "Waiting thread exist failed after %u %d. Task abort.", timeoutMs, xReturned ) );
 
         /* Return negative value to indicate error. */
         retValue = -1;
@@ -174,39 +175,39 @@ int FRTest_ThreadTimedJoin(FRTestThreadHandle_t threadHandle,
         configASSERT( FALSE );
     }
 
-    free(pTaskParam);
+    free( pTaskParam );
 
     return retValue;
 }
 
 /*-----------------------------------------------------------*/
 
-void FRTest_TimeDelay(uint32_t delayMs)
+void FRTest_TimeDelay( uint32_t delayMs )
 {
-    vTaskDelay(pdMS_TO_TICKS(delayMs));
+    vTaskDelay( pdMS_TO_TICKS( delayMs ) );
 }
 
 /*-----------------------------------------------------------*/
 
-void* FRTest_MemoryAlloc(size_t size)
+void * FRTest_MemoryAlloc( size_t size )
 {
-    return pvPortMalloc(size);
+    return pvPortMalloc( size );
 }
 
 /*-----------------------------------------------------------*/
 
-void FRTest_MemoryFree(void* ptr)
+void FRTest_MemoryFree( void * ptr )
 {
-    return vPortFree(ptr);
+    return vPortFree( ptr );
 }
 
 /*-----------------------------------------------------------*/
 
 
 
-NetworkConnectStatus_t prvTransportNetworkConnect(void* pNetworkContext,
-    TestHostInfo_t* pHostInfo,
-    void* pNetworkCredentials)
+NetworkConnectStatus_t prvTransportNetworkConnect( void * pNetworkContext,
+                                                   TestHostInfo_t * pHostInfo,
+                                                   void * pNetworkCredentials )
 {
     /* Connect the transport network. */
     NetworkConnectStatus_t xNetStatus = NETWORK_CONNECT_FAILURE;
@@ -219,11 +220,11 @@ NetworkConnectStatus_t prvTransportNetworkConnect(void* pNetworkContext,
                                                        5000,
                                                        5000 );
 
-    if (xPlaintextStatus == PLAINTEXT_TRANSPORT_SUCCESS)
+    if( xPlaintextStatus == PLAINTEXT_TRANSPORT_SUCCESS )
     {
         xNetStatus = NETWORK_CONNECT_SUCCESS;
     }
-    else 
+    else
     {
         LogError( ( "Plaintext_FreeRTOS_UDP_Connect return fail, xPlaintextStatus=%d", xPlaintextStatus ) );
     }
@@ -233,7 +234,7 @@ NetworkConnectStatus_t prvTransportNetworkConnect(void* pNetworkContext,
 
 /*-----------------------------------------------------------*/
 
-static void prvTransportNetworkDisconnect(void* pNetworkContext)
+static void prvTransportNetworkDisconnect( void * pNetworkContext )
 {
     /* Disconnect the transport network. */
     Plaintext_FreeRTOS_UDP_Disconnect( pNetworkContext );
@@ -241,18 +242,19 @@ static void prvTransportNetworkDisconnect(void* pNetworkContext)
 
 /*-----------------------------------------------------------*/
 
-static void prvTransportTestDelay(uint32_t delayMs)
+static void prvTransportTestDelay( uint32_t delayMs )
 {
     /* Delay function to wait for the response from network. */
     const TickType_t xDelay = delayMs / portTICK_PERIOD_MS;
-    vTaskDelay(xDelay);
+
+    vTaskDelay( xDelay );
 }
 
 /*-----------------------------------------------------------*/
 
-void SetupTransportTestParam(TransportTestParam_t* pTestParam)
+void SetupTransportTestParam( TransportTestParam_t * pTestParam )
 {
-    //Transport test initialization
+    /*Transport test initialization */
     xNetworkContext.pParams = &xTransportParams;
     xSecondNetworkContext.pParams = &xSecondTransportParams;
 
@@ -277,7 +279,7 @@ void SetupTransportTestParam(TransportTestParam_t* pTestParam)
  */
 void RunTransportTestTask( void * pvParameters )
 {
-    (void) pvParameters;
+    ( void ) pvParameters;
 
     RunQualificationTest();
 }

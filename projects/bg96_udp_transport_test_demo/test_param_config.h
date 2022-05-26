@@ -91,7 +91,7 @@
  *
  * #define ECHO_SERVER_ENDPOINT   "PLACE_HOLDER"
  */
-#define ECHO_SERVER_ENDPOINT "PLACE_HOLDER"
+#define ECHO_SERVER_ENDPOINT    "PLACE_HOLDER"
 
 
 /**
@@ -99,7 +99,7 @@
  *
  * #define ECHO_SERVER_PORT       (9000)
  */
-#define ECHO_SERVER_PORT       (9000)
+#define ECHO_SERVER_PORT                ( 9000 )
 
 /**
  * @brief Root certificate of the echo server.
@@ -113,7 +113,7 @@
  *
  * #define ECHO_SERVER_ROOT_CA "PLACE_HOLDER"
  */
-#define ECHO_SERVER_ROOT_CA NULL
+#define ECHO_SERVER_ROOT_CA             NULL
 
 /**
  * @brief Client certificate to connect to echo server.
@@ -127,7 +127,7 @@
  *
  * #define TRANSPORT_CLIENT_CERTIFICATE NULL
  */
-#define TRANSPORT_CLIENT_CERTIFICATE NULL
+#define TRANSPORT_CLIENT_CERTIFICATE    NULL
 
 /**
  * @brief Client private key to connect to echo server.
@@ -138,7 +138,7 @@
  *
  * #define TRANSPORT_CLIENT_PRIVATE_KEY  NULL
  */
-#define TRANSPORT_CLIENT_PRIVATE_KEY NULL
+#define TRANSPORT_CLIENT_PRIVATE_KEY    NULL
 
 /**
  * @brief Microseconds to delay the start of test.
@@ -148,9 +148,10 @@
  * #define TEST_START_DELAY_MS  5000
  */
 
-#define OTA_RSA_SHA1      1
-#define OTA_RSA_SHA256    2
-#define OTA_ECDSA_SHA256  3
+#define OTA_RSA_SHA1        1
+#define OTA_RSA_SHA256      2
+#define OTA_ECDSA_SHA256    3
+
 /**
  * @brief Certificate type for OTA PAL test.
  * Valid options are: OTA_RSA_SHA1, OTA_RSA_SHA256, OTA_ECDSA_SHA256.

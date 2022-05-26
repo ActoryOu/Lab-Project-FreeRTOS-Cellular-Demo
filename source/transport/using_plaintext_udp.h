@@ -110,11 +110,11 @@ PlaintextTransportStatus_t Plaintext_FreeRTOS_UDP_Disconnect( const NetworkConte
  * @return #PLAINTEXT_TRANSPORT_SUCCESS, #PLAINTEXT_TRANSPORT_INVALID_PARAMETER,
  * or #PLAINTEXT_TRANSPORT_CONNECT_FAILURE.
  */
-PlaintextTransportStatus_t Plaintext_FreeRTOS_UDP_Connect(NetworkContext_t* pNetworkContext,
-    const char* pHostName,
-    uint16_t port,
-    uint32_t receiveTimeoutMs,
-    uint32_t sendTimeoutMs);
+PlaintextTransportStatus_t Plaintext_FreeRTOS_UDP_Connect( NetworkContext_t * pNetworkContext,
+                                                           const char * pHostName,
+                                                           uint16_t port,
+                                                           uint32_t receiveTimeoutMs,
+                                                           uint32_t sendTimeoutMs );
 
 /**
  * @brief Receives data from an UDP connection.
@@ -127,9 +127,9 @@ PlaintextTransportStatus_t Plaintext_FreeRTOS_UDP_Connect(NetworkContext_t* pNet
  * @return Number of bytes received if successful; 0 if the socket times out;
  * Negative value on error.
  */
-int32_t Plaintext_FreeRTOS_recvFrom(NetworkContext_t* pNetworkContext,
-    void* pBuffer,
-    size_t bytesToRecv);
+int32_t Plaintext_FreeRTOS_recvFrom( NetworkContext_t * pNetworkContext,
+                                     void * pBuffer,
+                                     size_t bytesToRecv );
 
 /**
  * @brief Sends data over an established UDP connection.
@@ -141,8 +141,8 @@ int32_t Plaintext_FreeRTOS_recvFrom(NetworkContext_t* pNetworkContext,
  *
  * @return Number of bytes sent on success; else a negative value.
  */
-int32_t Plaintext_FreeRTOS_sendTo(NetworkContext_t* pNetworkContext,
-    const void* pBuffer,
-    size_t bytesToSend);
+int32_t Plaintext_FreeRTOS_sendTo( NetworkContext_t * pNetworkContext,
+                                   const void * pBuffer,
+                                   size_t bytesToSend );
 
 #endif /* ifndef USING_PLAINTEXT_H */

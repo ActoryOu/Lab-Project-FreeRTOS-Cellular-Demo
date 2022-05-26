@@ -55,7 +55,7 @@ static UBaseType_t ulNextRand;
 extern bool setupCellular( void );
 
 /* MQTT demo application. */
-extern void RunTransportTestTask(void* pvParameters);
+extern void RunTransportTestTask( void * pvParameters );
 
 /* The task function to setup cellular with thread ready environment. */
 static void CellularDemoTask( void * pvParameters );
