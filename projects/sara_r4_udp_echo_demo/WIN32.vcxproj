@@ -1,0 +1,206 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|Win32">
+      <Configuration>Debug</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|Win32">
+      <Configuration>Release</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\..\lib\cellular\modules\sara_r4\cellular_r4.h" />
+    <ClInclude Include="..\..\lib\cellular\source\include\cellular_api.h" />
+    <ClInclude Include="..\..\lib\cellular\source\include\cellular_config_defaults.h" />
+    <ClInclude Include="..\..\lib\cellular\source\include\cellular_types.h" />
+    <ClInclude Include="..\..\lib\cellular\source\include\common\cellular_at_core.h" />
+    <ClInclude Include="..\..\lib\cellular\source\include\common\cellular_common.h" />
+    <ClInclude Include="..\..\lib\cellular\source\include\common\cellular_common_api.h" />
+    <ClInclude Include="..\..\lib\cellular\source\include\common\cellular_common_portable.h" />
+    <ClInclude Include="..\..\lib\cellular\source\include\private\cellular_common_internal.h" />
+    <ClInclude Include="..\..\lib\cellular\source\include\private\cellular_internal.h" />
+    <ClInclude Include="..\..\lib\cellular\source\include\private\cellular_pkthandler_internal.h" />
+    <ClInclude Include="..\..\lib\cellular\source\include\private\cellular_pktio_internal.h" />
+    <ClInclude Include="..\..\lib\cellular\source\interface\cellular_comm_interface.h" />
+    <ClInclude Include="..\..\lib\coreMQTT\source\interface\transport_interface.h" />
+    <ClInclude Include="..\..\lib\FreeRTOS\include\event_groups.h" />
+    <ClInclude Include="..\..\lib\FreeRTOS\include\FreeRTOS.h" />
+    <ClInclude Include="..\..\lib\FreeRTOS\include\portable.h" />
+    <ClInclude Include="..\..\lib\FreeRTOS\include\projdefs.h" />
+    <ClInclude Include="..\..\lib\FreeRTOS\include\queue.h" />
+    <ClInclude Include="..\..\lib\FreeRTOS\include\semphr.h" />
+    <ClInclude Include="..\..\lib\FreeRTOS\include\task.h" />
+    <ClInclude Include="..\..\lib\FreeRTOS\include\timers.h" />
+    <ClInclude Include="..\..\lib\FreeRTOS\portable\MSVC-MingW\portmacro.h" />
+    <ClInclude Include="..\..\source\cellular\sara_r4\cellular_config.h" />
+    <ClInclude Include="..\..\source\cellular\cellular_platform.h" />
+    <ClInclude Include="..\..\source\coreMQTT\sockets_wrapper.h" />
+    <ClInclude Include="..\..\source\demo_config.h" />
+    <ClInclude Include="..\..\source\FreeRTOS\FreeRTOSConfig.h" />
+    <ClInclude Include="..\..\source\logging_levels.h" />
+    <ClInclude Include="..\..\source\logging_stack.h" />
+    <ClInclude Include="..\..\source\transport\using_plaintext_udp.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\..\lib\cellular\modules\sara_r4\cellular_r4.c" />
+    <ClCompile Include="..\..\lib\cellular\modules\sara_r4\cellular_r4_api.c" />
+    <ClCompile Include="..\..\lib\cellular\modules\sara_r4\cellular_r4_urc_handler.c" />
+    <ClCompile Include="..\..\lib\cellular\modules\sara_r4\cellular_r4_wrapper.c" />
+    <ClCompile Include="..\..\lib\cellular\source\cellular_3gpp_api.c" />
+    <ClCompile Include="..\..\lib\cellular\source\cellular_3gpp_urc_handler.c" />
+    <ClCompile Include="..\..\lib\cellular\source\cellular_at_core.c" />
+    <ClCompile Include="..\..\lib\cellular\source\cellular_common.c" />
+    <ClCompile Include="..\..\lib\cellular\source\cellular_common_api.c" />
+    <ClCompile Include="..\..\lib\cellular\source\cellular_pkthandler.c" />
+    <ClCompile Include="..\..\lib\cellular\source\cellular_pktio.c" />
+    <ClCompile Include="..\..\lib\FreeRTOS\event_groups.c" />
+    <ClCompile Include="..\..\lib\FreeRTOS\list.c" />
+    <ClCompile Include="..\..\lib\FreeRTOS\portable\MemMang\heap_4.c" />
+    <ClCompile Include="..\..\lib\FreeRTOS\portable\MSVC-MingW\port.c" />
+    <ClCompile Include="..\..\lib\FreeRTOS\queue.c" />
+    <ClCompile Include="..\..\lib\FreeRTOS\stream_buffer.c" />
+    <ClCompile Include="..\..\lib\FreeRTOS\tasks.c" />
+    <ClCompile Include="..\..\lib\FreeRTOS\timers.c" />
+    <ClCompile Include="..\..\source\cellular\cellular_platform.c" />
+    <ClCompile Include="..\..\source\cellular\comm_if_windows.c" />
+    <ClCompile Include="..\..\source\cellular_setup.c" />
+    <ClCompile Include="..\..\source\coreMQTT\sockets_wrapper.c" />
+    <ClCompile Include="main.c" />
+    <ClCompile Include="..\..\source\transport\using_plaintext_udp.c" />
+    <ClCompile Include="echoTask.c" />
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectGuid>{C686325E-3261-42F7-AEB1-DDE5280E1CEB}</ProjectGuid>
+    <ProjectName>CellularDemo</ProjectName>
+    <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseOfMfc>false</UseOfMfc>
+    <CharacterSet>MultiByte</CharacterSet>
+    <PlatformToolset>v142</PlatformToolset>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseOfMfc>false</UseOfMfc>
+    <CharacterSet>MultiByte</CharacterSet>
+    <PlatformToolset>v142</PlatformToolset>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+    <Import Project="$(VCTargetsPath)Microsoft.CPP.UpgradeFromVC60.props" />
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+    <Import Project="$(VCTargetsPath)Microsoft.CPP.UpgradeFromVC60.props" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup>
+    <_ProjectFileVersion>10.0.30319.1</_ProjectFileVersion>
+    <OutDir Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">.\Debug\</OutDir>
+    <IntDir Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">.\Debug\</IntDir>
+    <LinkIncremental Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</LinkIncremental>
+    <OutDir Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">.\Release\</OutDir>
+    <IntDir Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">.\Release\</IntDir>
+    <LinkIncremental Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">false</LinkIncremental>
+    <CodeAnalysisRuleSet Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">AllRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <Midl>
+      <TypeLibraryName>.\Debug/WIN32.tlb</TypeLibraryName>
+      <HeaderFileName>
+      </HeaderFileName>
+    </Midl>
+    <ClCompile>
+      <Optimization>Disabled</Optimization>
+      <AdditionalIncludeDirectories>.;.\..\..\lib\cellular\source\include;.\..\..\lib\cellular\source\interface;.\..\..\lib\cellular\source\include\common;.\..\..\lib\cellular\source\include\private;.\..\..\lib\FreeRTOS\portable\MSVC-MingW;.\..\..\lib\FreeRTOS\include;.\..\..\lib\coreMQTT\source\interface;.\..\..\source;.\..\..\source\coreMQTT;.\..\..\source\FreeRTOS;.\..\..\source\mbedtls;.\..\..\source\cellular;.\..\..\source\cellular\sara_r4;.\..\..\source\transport;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>MBEDTLS_CONFIG_FILE="mbedtls_config.h";WIN32;_DEBUG;_CONSOLE;_WIN32_WINNT=0x0500;WINVER=0x400;_CRT_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <MinimalRebuild>false</MinimalRebuild>
+      <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
+      <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
+      <PrecompiledHeaderOutputFile>.\Debug/WIN32.pch</PrecompiledHeaderOutputFile>
+      <AssemblerListingLocation>.\Debug/</AssemblerListingLocation>
+      <ObjectFileName>.\Debug/</ObjectFileName>
+      <ProgramDataBaseFileName>.\Debug/</ProgramDataBaseFileName>
+      <WarningLevel>Level4</WarningLevel>
+      <SuppressStartupBanner>true</SuppressStartupBanner>
+      <DisableLanguageExtensions>false</DisableLanguageExtensions>
+      <DebugInformationFormat>EditAndContinue</DebugInformationFormat>
+      <AdditionalOptions>/wd4210 /wd4127 /wd4214 /wd4201 /wd4244  /wd4310 /wd4200 %(AdditionalOptions)</AdditionalOptions>
+      <BrowseInformation>true</BrowseInformation>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <ExceptionHandling>false</ExceptionHandling>
+      <CompileAs>CompileAsC</CompileAs>
+      <DisableSpecificWarnings>4204;4221;4210;4127;4244;4310</DisableSpecificWarnings>
+    </ClCompile>
+    <ResourceCompile>
+      <PreprocessorDefinitions>_DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <Culture>0x0c09</Culture>
+    </ResourceCompile>
+    <Link>
+      <OutputFile>.\Debug/CellularDemo.exe</OutputFile>
+      <SuppressStartupBanner>true</SuppressStartupBanner>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <ProgramDatabaseFile>.\Debug/WIN32.pdb</ProgramDatabaseFile>
+      <SubSystem>Console</SubSystem>
+      <TargetMachine>MachineX86</TargetMachine>
+      <AdditionalDependencies>Bcrypt.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>
+      </AdditionalLibraryDirectories>
+      <Profile>false</Profile>
+      <ImageHasSafeExceptionHandlers>false</ImageHasSafeExceptionHandlers>
+    </Link>
+    <Bscmake>
+      <SuppressStartupBanner>true</SuppressStartupBanner>
+      <OutputFile>.\Debug/WIN32.bsc</OutputFile>
+    </Bscmake>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <Midl>
+      <TypeLibraryName>.\Release/WIN32.tlb</TypeLibraryName>
+      <HeaderFileName>
+      </HeaderFileName>
+    </Midl>
+    <ClCompile>
+      <Optimization>MaxSpeed</Optimization>
+      <InlineFunctionExpansion>OnlyExplicitInline</InlineFunctionExpansion>
+      <PreprocessorDefinitions>_WINSOCKAPI_;WIN32;NDEBUG;_CONSOLE;_CRT_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <StringPooling>true</StringPooling>
+      <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <PrecompiledHeaderOutputFile>.\Release/WIN32.pch</PrecompiledHeaderOutputFile>
+      <AssemblerListingLocation>.\Release/</AssemblerListingLocation>
+      <ObjectFileName>.\Release/</ObjectFileName>
+      <ProgramDataBaseFileName>.\Release/</ProgramDataBaseFileName>
+      <WarningLevel>Level3</WarningLevel>
+      <SuppressStartupBanner>true</SuppressStartupBanner>
+      <AdditionalIncludeDirectories>..\Common\Utils;..\Common\ethernet\lwip-1.4.0\ports\win32\WinPCap;..\Common\ethernet\lwip-1.4.0\src\include\ipv4;..\Common\ethernet\lwip-1.4.0\src\include;..\..\..\..\..\source\include;..\..\..\..\..\source\portable\MSVC-MingW;..\Common\ethernet\lwip-1.4.0\ports\win32\include;..\Common\Include;.\lwIP_Apps;.;..\..\lib\cellular\modules\sim70x0;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ClCompile>
+    <ResourceCompile>
+      <PreprocessorDefinitions>NDEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <Culture>0x0c09</Culture>
+    </ResourceCompile>
+    <Link>
+      <OutputFile>.\Release/CellularDemo.exe</OutputFile>
+      <SuppressStartupBanner>true</SuppressStartupBanner>
+      <ProgramDatabaseFile>.\Release/WIN32.pdb</ProgramDatabaseFile>
+      <SubSystem>Console</SubSystem>
+      <TargetMachine>MachineX86</TargetMachine>
+      <AdditionalLibraryDirectories>..\Common\ethernet\lwip-1.4.0\ports\win32\WinPCap</AdditionalLibraryDirectories>
+      <AdditionalDependencies>wpcap.lib;Bcrypt.lib;%(AdditionalDependencies)</AdditionalDependencies>
+    </Link>
+    <Bscmake>
+      <SuppressStartupBanner>true</SuppressStartupBanner>
+      <OutputFile>.\Release/WIN32.bsc</OutputFile>
+    </Bscmake>
+  </ItemDefinitionGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>

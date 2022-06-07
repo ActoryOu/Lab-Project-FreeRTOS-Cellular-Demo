@@ -1046,21 +1046,9 @@ BaseType_t Sockets_Udp_Connect( Socket_t * pUdpSocket,
         }
     }
 
-    /* Wait the socket connection. */
-    if( retConnect == SOCKETS_ERROR_NONE )
-    {
-        waitEventBits = xEventGroupWaitBits( pCellularSocketContext->socketEventGroupHandle,
-                                             SOCKET_OPEN_CALLBACK_BIT | SOCKET_OPEN_FAILED_CALLBACK_BIT,
-                                             pdTRUE,
-                                             pdFALSE,
-                                             CELLULAR_SOCKET_OPEN_TIMEOUT_TICKS );
+    /* No need to wait for connection in UDP. */
+    pCellularSocketContext->ulFlags = pCellularSocketContext->ulFlags | CELLULAR_SOCKET_CONNECT_FLAG;
 
-        if( waitEventBits != SOCKET_OPEN_CALLBACK_BIT )
-        {
-            IotLogError( "Socket connect timeout." );
-            retConnect = SOCKETS_ENOTCONN;
-        }
-    }
 
     /* Cleanup the socket if any error. */
     if( retConnect != SOCKETS_ERROR_NONE )
