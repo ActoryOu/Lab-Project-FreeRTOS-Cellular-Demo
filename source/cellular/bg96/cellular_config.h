@@ -46,11 +46,11 @@
 
 /* Logging configuration for the Demo. */
 #ifndef LIBRARY_LOG_NAME
-#define LIBRARY_LOG_NAME    "CellularLib"
+    #define LIBRARY_LOG_NAME    "CellularLib"
 #endif
 
 #ifndef LIBRARY_LOG_LEVEL
-#define LIBRARY_LOG_LEVEL    LOG_INFO
+    #define LIBRARY_LOG_LEVEL    LOG_INFO
 #endif
 
 #include "logging_stack.h"
@@ -84,10 +84,11 @@
 /*
  * Overwrite default config for different cellular modules.
  */
+
 /*
  * GetHostByName API is not used in the demo. IP address is used to store the hostname.
  * The value should be longer than the length of democonfigMQTT_BROKER_ENDPOINT in demo_config.h.
  */
-#define CELLULAR_IP_ADDRESS_MAX_SIZE                    ( 64U )
+#define CELLULAR_IP_ADDRESS_MAX_SIZE    ( 64U )
 
 #endif /* __CELLULAR_CONFIG_H__ */

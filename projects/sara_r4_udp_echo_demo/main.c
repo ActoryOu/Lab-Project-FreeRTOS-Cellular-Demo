@@ -55,7 +55,7 @@ static UBaseType_t ulNextRand;
 extern bool setupCellular( void );
 
 /* Echo demo application. */
-extern void RunEchoTask(void* pvParameters);
+extern void RunEchoTask( void * pvParameters );
 
 /* The task function to setup cellular with thread ready environment. */
 static void CellularDemoTask( void * pvParameters );

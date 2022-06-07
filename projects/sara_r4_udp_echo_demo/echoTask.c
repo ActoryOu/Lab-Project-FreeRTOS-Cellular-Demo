@@ -67,7 +67,7 @@
  * #define ECHO_SERVER_ENDPOINT   "PLACE_HOLDER"
  */
 #ifndef ECHO_SERVER_ENDPOINT
-    #define ECHO_SERVER_ENDPOINT   "PLACE_HOLDER"
+    #define ECHO_SERVER_ENDPOINT    "PLACE_HOLDER"
 #endif
 
 /**
@@ -76,7 +76,7 @@
  * #define ECHO_SERVER_PORT       (9000)
  */
 #ifndef ECHO_SERVER_PORT
-    #define ECHO_SERVER_PORT   (9000)
+    #define ECHO_SERVER_PORT    ( 9000 )
 #endif
 
 /**
@@ -85,7 +85,7 @@
  * #define ECHO_SEND_RECV_TIMEOUT_MS       (5000)
  */
 #ifndef ECHO_SEND_RECV_TIMEOUT_MS
-    #define ECHO_SEND_RECV_TIMEOUT_MS       (5000)
+    #define ECHO_SEND_RECV_TIMEOUT_MS    ( 5000 )
 #endif
 
 /**
@@ -94,7 +94,7 @@
  * #define ECHO_BUFFER_MAX_SIZE       (CELLULAR_MAX_SEND_DATA_LEN)
  */
 #ifndef ECHO_BUFFER_SIZE
-    #define ECHO_BUFFER_MAX_SIZE       (CELLULAR_MAX_SEND_DATA_LEN)
+    #define ECHO_BUFFER_MAX_SIZE    ( CELLULAR_MAX_SEND_DATA_LEN )
 #endif
 
 /**
@@ -103,14 +103,15 @@
  * #define ECHO_MAX_RETRY_COUNT       (3)
  */
 #ifndef ECHO_MAX_RETRY_COUNT
-    #define ECHO_MAX_RETRY_COUNT       (10)
+    #define ECHO_MAX_RETRY_COUNT    ( 10 )
 #endif
 
 /*-----------------------------------------------------------*/
 
-typedef struct {
-    uint8_t sendBuf[ECHO_BUFFER_MAX_SIZE];
-    uint8_t recvBuf[ECHO_BUFFER_MAX_SIZE];
+typedef struct
+{
+    uint8_t sendBuf[ ECHO_BUFFER_MAX_SIZE ];
+    uint8_t recvBuf[ ECHO_BUFFER_MAX_SIZE ];
 } echoTestBuffer_t;
 
 echoTestBuffer_t xEchoTestBuffer;
@@ -132,10 +133,10 @@ void RunEchoTask( void * pvParameters );
  */
 struct NetworkContext
 {
-    PlaintextTransportParams_t* pParams;
+    PlaintextTransportParams_t * pParams;
 };
 
-bool prvTransportNetworkConnect(void* pNetworkContext )
+bool prvTransportNetworkConnect( void * pNetworkContext )
 {
     /* Connect the transport network. */
     bool xNetStatus = false;
@@ -146,13 +147,13 @@ bool prvTransportNetworkConnect(void* pNetworkContext )
                                                        ECHO_SERVER_ENDPOINT,
                                                        ECHO_SERVER_PORT,
                                                        ECHO_SEND_RECV_TIMEOUT_MS,
-                                                       ECHO_SEND_RECV_TIMEOUT_MS);
+                                                       ECHO_SEND_RECV_TIMEOUT_MS );
 
-    if (xPlaintextStatus == PLAINTEXT_TRANSPORT_SUCCESS)
+    if( xPlaintextStatus == PLAINTEXT_TRANSPORT_SUCCESS )
     {
         xNetStatus = true;
     }
-    else 
+    else
     {
         LogError( ( "Plaintext_FreeRTOS_UDP_Connect return fail, xPlaintextStatus=%d", xPlaintextStatus ) );
     }
@@ -162,7 +163,7 @@ bool prvTransportNetworkConnect(void* pNetworkContext )
 
 /*-----------------------------------------------------------*/
 
-static void prvTransportNetworkDisconnect(void* pNetworkContext)
+static void prvTransportNetworkDisconnect( void * pNetworkContext )
 {
     /* Disconnect the transport network. */
     Plaintext_FreeRTOS_UDP_Disconnect( pNetworkContext );
@@ -173,14 +174,14 @@ static void prvTransportNetworkDisconnect(void* pNetworkContext)
 /**
  * @brief Initialize the test data with 0,1,...,255,0,1,...
  */
-static void prvInitializeTestData( uint8_t* pTransportTestBuffer,
+static void prvInitializeTestData( uint8_t * pTransportTestBuffer,
                                    size_t testSize )
 {
     uint32_t i = 0U;
 
-    for (i = 0U; i < testSize; i++)
+    for( i = 0U; i < testSize; i++ )
     {
-        pTransportTestBuffer[i] = (uint8_t)i;
+        pTransportTestBuffer[ i ] = ( uint8_t ) i;
     }
 }
 
@@ -189,16 +190,16 @@ static void prvInitializeTestData( uint8_t* pTransportTestBuffer,
 /**
  * @brief Send the packet to the echo server.
  */
-static bool prvSendPackets(void* pNetworkContext,
-    uint8_t* pBuf,
-    size_t size)
+static bool prvSendPackets( void * pNetworkContext,
+                            uint8_t * pBuf,
+                            size_t size )
 {
     bool result = false;
     size_t sentByte = 0;
 
-    sentByte = Plaintext_FreeRTOS_sendTo(pNetworkContext, pBuf, size);
+    sentByte = Plaintext_FreeRTOS_sendTo( pNetworkContext, pBuf, size );
 
-    if (sentByte == size)
+    if( sentByte == size )
     {
         result = true;
     }
@@ -211,31 +212,30 @@ static bool prvSendPackets(void* pNetworkContext,
 /**
  * @brief Receive the packet from the echo server.
  */
-static bool prvRecvPackets(void* pNetworkContext,
-    uint8_t* pBuf,
-    size_t size)
+static bool prvRecvPackets( void * pNetworkContext,
+                            uint8_t * pBuf,
+                            size_t size )
 {
     bool result = false;
     size_t recvByte = 0;
 
     do
     {
-        recvByte = Plaintext_FreeRTOS_recvFrom(pNetworkContext, pBuf, size);
+        recvByte = Plaintext_FreeRTOS_recvFrom( pNetworkContext, pBuf, size );
 
-        if (recvByte == size)
+        if( recvByte == size )
         {
             result = true;
             break;
         }
     } while( recvByte > 0 );
-    
 
     return result;
 }
 
 /*-----------------------------------------------------------*/
 
-static bool prvLoopSendAndReceive(void* pNetworkContext)
+static bool prvLoopSendAndReceive( void * pNetworkContext )
 {
     bool result = true;
     bool recvResult = true;
@@ -244,12 +244,12 @@ static bool prvLoopSendAndReceive(void* pNetworkContext)
     uint16_t failCount = 0;
 
     /* Loop from 1~ECHO_BUFFER_MAX_SIZE. */
-    for (size = ECHO_BUFFER_MAX_SIZE - 1; size < ECHO_BUFFER_MAX_SIZE; )
+    for( size = ECHO_BUFFER_MAX_SIZE - 1; size < ECHO_BUFFER_MAX_SIZE; )
     {
         /* Send the packet */
         sendResult = prvSendPackets( pNetworkContext, xEchoTestBuffer.sendBuf, size );
 
-        if (!sendResult)
+        if( !sendResult )
         {
             LogError( ( "Send UDP packet failed" ) );
             result = false;
@@ -257,24 +257,24 @@ static bool prvLoopSendAndReceive(void* pNetworkContext)
         }
 
         /* Recv & compare the packet. */
-        recvResult = prvRecvPackets(pNetworkContext, xEchoTestBuffer.recvBuf, size);
+        recvResult = prvRecvPackets( pNetworkContext, xEchoTestBuffer.recvBuf, size );
 
         /* It's possible to miss packet via UDP protocol, try to send again. */
         if( !recvResult )
         {
             failCount++;
-            LogWarn(("Recv UDP packet failed, count=%d", failCount));
+            LogWarn( ( "Recv UDP packet failed, count=%d", failCount ) );
 
-            if (failCount > ECHO_MAX_RETRY_COUNT)
+            if( failCount > ECHO_MAX_RETRY_COUNT )
             {
-                LogError(("Reach max retry count, recv UDP packet failed"));
+                LogError( ( "Reach max retry count, recv UDP packet failed" ) );
                 result = false;
                 break;
             }
         }
         else
         {
-            if (memcmp(xEchoTestBuffer.sendBuf, xEchoTestBuffer.recvBuf, size) == 0)
+            if( memcmp( xEchoTestBuffer.sendBuf, xEchoTestBuffer.recvBuf, size ) == 0 )
             {
                 failCount = 0;
                 size++;
@@ -302,23 +302,23 @@ void RunEchoTask( void * pvParameters )
     PlaintextTransportParams_t xPlaintextTransportParam = { 0 };
     bool status = false;
 
-    (void) pvParameters;
+    ( void ) pvParameters;
 
     /* Initialize the network context. */
     xNetworkContext.pParams = &xPlaintextTransportParam;
-    prvInitializeTestData( xEchoTestBuffer.sendBuf, sizeof(xEchoTestBuffer.sendBuf) );
-    prvInitializeTestData( xEchoTestBuffer.recvBuf, sizeof(xEchoTestBuffer.recvBuf) );
+    prvInitializeTestData( xEchoTestBuffer.sendBuf, sizeof( xEchoTestBuffer.sendBuf ) );
+    prvInitializeTestData( xEchoTestBuffer.recvBuf, sizeof( xEchoTestBuffer.recvBuf ) );
 
     /* Create the socket connection */
     status = prvTransportNetworkConnect( &xNetworkContext );
 
-    if (status)
+    if( status )
     {
         /* Loop to send & receive data with echo server. */
-        status = prvLoopSendAndReceive(&xNetworkContext);
+        status = prvLoopSendAndReceive( &xNetworkContext );
     }
 
-    if (!status)
+    if( !status )
     {
         LogError( ( "============ Demo Failed ============" ) );
     }
@@ -326,12 +326,12 @@ void RunEchoTask( void * pvParameters )
     {
         LogInfo( ( "============ Demo Pass ============" ) );
     }
-    
+
     /* Release the resources. */
     prvTransportNetworkDisconnect( &xNetworkContext );
 
     /* Test finished. */
-    vTaskDelete(NULL);
+    vTaskDelete( NULL );
 }
 
 /*-----------------------------------------------------------*/

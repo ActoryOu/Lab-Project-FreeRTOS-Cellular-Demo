@@ -77,7 +77,7 @@ extern uint8_t CellularSocketPdnContextId;
 #define SOCKET_CLOSE_CALLBACK_BIT            ( 0x00000008U )
 
 /* Ticks MS conversion macros. */
-#define TICKS_TO_MS( xTicks )                  ( ( ( xTicks ) * 1000U ) / ( ( uint32_t ) configTICK_RATE_HZ ) )
+#define TICKS_TO_MS( xTicks )    ( ( ( xTicks ) * 1000U ) / ( ( uint32_t ) configTICK_RATE_HZ ) )
 #define UINT32_MAX_DELAY_MS                    ( 0xFFFFFFFFUL )
 #define UINT32_MAX_MS_TICKS                    ( UINT32_MAX_DELAY_MS / ( TICKS_TO_MS( 1U ) ) )
 
@@ -1048,7 +1048,6 @@ BaseType_t Sockets_Udp_Connect( Socket_t * pUdpSocket,
 
     /* No need to wait for connection in UDP. */
     pCellularSocketContext->ulFlags = pCellularSocketContext->ulFlags | CELLULAR_SOCKET_CONNECT_FLAG;
-
 
     /* Cleanup the socket if any error. */
     if( retConnect != SOCKETS_ERROR_NONE )

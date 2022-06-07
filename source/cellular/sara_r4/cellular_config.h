@@ -27,34 +27,35 @@
  * @file cellular_config.h
  * @brief cellular config options.
  */
- /**
-  * @file cellular_config.h
-  * @brief cellular config options.
-  */
+
+/**
+ * @file cellular_config.h
+ * @brief cellular config options.
+ */
 
 #ifndef __CELLULAR_CONFIG_H__
 #define __CELLULAR_CONFIG_H__
 
-  /**************************************************/
-  /******* DO NOT CHANGE the following order ********/
-  /**************************************************/
+/**************************************************/
+/******* DO NOT CHANGE the following order ********/
+/**************************************************/
 
-  /* Include logging header files and define logging macros in the following order:
-   * 1. Include the header file "logging_levels.h".
-   * 2. Define the LIBRARY_LOG_NAME and LIBRARY_LOG_LEVEL macros depending on
-   * the logging configuration for DEMO.
-   * 3. Include the header file "logging_stack.h", if logging is enabled for DEMO.
-   */
+/* Include logging header files and define logging macros in the following order:
+ * 1. Include the header file "logging_levels.h".
+ * 2. Define the LIBRARY_LOG_NAME and LIBRARY_LOG_LEVEL macros depending on
+ * the logging configuration for DEMO.
+ * 3. Include the header file "logging_stack.h", if logging is enabled for DEMO.
+ */
 
 #include "logging_levels.h"
 
-   /* Logging configuration for the Demo. */
+/* Logging configuration for the Demo. */
 #ifndef LIBRARY_LOG_NAME
-#define LIBRARY_LOG_NAME    "CellularLib"
+    #define LIBRARY_LOG_NAME    "CellularLib"
 #endif
 
 #ifndef LIBRARY_LOG_LEVEL
-#define LIBRARY_LOG_LEVEL    LOG_INFO
+    #define LIBRARY_LOG_LEVEL    LOG_INFO
 #endif
 
 #include "logging_stack.h"
@@ -95,17 +96,17 @@
  * GetHostByName API is not used in the demo. IP address is used to store the hostname.
  * The value should be longer than the length of democonfigMQTT_BROKER_ENDPOINT in demo_config.h.
  */
-#define CELLULAR_IP_ADDRESS_MAX_SIZE    ( 64U )
+#define CELLULAR_IP_ADDRESS_MAX_SIZE               ( 64U )
 
 /*
  * Sara R4 maximum socket send buffer size is 1024U.
  */
-#define CELLULAR_MAX_SEND_DATA_LEN      ( 1024U )
+#define CELLULAR_MAX_SEND_DATA_LEN                 ( 1024U )
 
 /*
  * Sara R4 maximum socket receive buffer size is 1024U.
  */
-#define CELLULAR_MAX_RECV_DATA_LEN      ( 1024U )
+#define CELLULAR_MAX_RECV_DATA_LEN                 ( 1024U )
 
 /*
  * Sara R4 supports set mobile network operators commands.
@@ -140,7 +141,7 @@
  * the preferred network provider.
  * #define CELLULAR_CONFIG_SARA_R4_SET_MNO_PROFILE         ( ...insert here... )
  */
-#define CELLULAR_CONFIG_SARA_R4_SET_MNO_PROFILE         ( 1 )
+#define CELLULAR_CONFIG_SARA_R4_SET_MNO_PROFILE    ( 1 )
 
 /*
  * Reboot Sara R4 cellular modem in module init function.
