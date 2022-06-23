@@ -96,25 +96,21 @@ typedef enum PlaintextTransportStatus
  *
  * @return #PLAINTEXT_TRANSPORT_SUCCESS, or #PLAINTEXT_TRANSPORT_INVALID_PARAMETER.
  */
-PlaintextTransportStatus_t Plaintext_FreeRTOS_UDP_Disconnect( const NetworkContext_t * pNetworkContext );
+PlaintextTransportStatus_t Plaintext_FreeRTOS_UDP_Destroy( const NetworkContext_t * pNetworkContext );
 
 /**
  * @brief Create a UDP connection with FreeRTOS sockets.
  *
  * @param[out] pNetworkContext Pointer to a network context to contain the
  * initialized socket handle.
- * @param[in] pHostName The hostname of the remote endpoint.
- * @param[in] port The destination port.
  * @param[in] receiveTimeoutMs Receive socket timeout.
  *
  * @return #PLAINTEXT_TRANSPORT_SUCCESS, #PLAINTEXT_TRANSPORT_INVALID_PARAMETER,
  * or #PLAINTEXT_TRANSPORT_CONNECT_FAILURE.
  */
-PlaintextTransportStatus_t Plaintext_FreeRTOS_UDP_Connect( NetworkContext_t * pNetworkContext,
-                                                           const char * pHostName,
-                                                           uint16_t port,
-                                                           uint32_t receiveTimeoutMs,
-                                                           uint32_t sendTimeoutMs );
+PlaintextTransportStatus_t Plaintext_FreeRTOS_UDP_Create( NetworkContext_t * pNetworkContext,
+                                                          uint32_t receiveTimeoutMs,
+                                                          uint32_t sendTimeoutMs );
 
 /**
  * @brief Receives data from an UDP connection.
@@ -123,13 +119,17 @@ PlaintextTransportStatus_t Plaintext_FreeRTOS_UDP_Connect( NetworkContext_t * pN
  * handle.
  * @param[out] pBuffer Buffer to receive bytes into.
  * @param[in] bytesToRecv Number of bytes to receive from the network.
+ * @param[in] pHostName The hostname of the remote endpoint.
+ * @param[in] port The destination port.
  *
  * @return Number of bytes received if successful; 0 if the socket times out;
  * Negative value on error.
  */
 int32_t Plaintext_FreeRTOS_recvFrom( NetworkContext_t * pNetworkContext,
                                      void * pBuffer,
-                                     size_t bytesToRecv );
+                                     size_t bytesToRecv,
+                                     const char * pHostName,
+                                     uint16_t port );
 
 /**
  * @brief Sends data over an established UDP connection.
@@ -138,11 +138,15 @@ int32_t Plaintext_FreeRTOS_recvFrom( NetworkContext_t * pNetworkContext,
  * handle.
  * @param[in] pBuffer Buffer containing the bytes to send.
  * @param[in] bytesToSend Number of bytes to send from the buffer.
+ * @param[in] pHostName The hostname of the remote endpoint.
+ * @param[in] port The destination port.
  *
  * @return Number of bytes sent on success; else a negative value.
  */
 int32_t Plaintext_FreeRTOS_sendTo( NetworkContext_t * pNetworkContext,
                                    const void * pBuffer,
-                                   size_t bytesToSend );
+                                   size_t bytesToSend,
+                                   const char * pHostName,
+                                   uint16_t port );
 
 #endif /* ifndef USING_PLAINTEXT_H */

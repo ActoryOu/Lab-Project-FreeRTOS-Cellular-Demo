@@ -56,22 +56,18 @@ struct NetworkContext
 
 /*-----------------------------------------------------------*/
 
-PlaintextTransportStatus_t Plaintext_FreeRTOS_UDP_Connect( NetworkContext_t * pNetworkContext,
-                                                           const char * pHostName,
-                                                           uint16_t port,
-                                                           uint32_t receiveTimeoutMs,
-                                                           uint32_t sendTimeoutMs )
+PlaintextTransportStatus_t Plaintext_FreeRTOS_UDP_Create( NetworkContext_t * pNetworkContext,
+                                                          uint32_t receiveTimeoutMs,
+                                                          uint32_t sendTimeoutMs )
 {
     PlaintextTransportParams_t * pPlaintextTransportParams = NULL;
     PlaintextTransportStatus_t plaintextStatus = PLAINTEXT_TRANSPORT_SUCCESS;
     BaseType_t socketStatus = 0;
 
-    if( ( pNetworkContext == NULL ) || ( pNetworkContext->pParams == NULL ) || ( pHostName == NULL ) )
+    if( ( pNetworkContext == NULL ) || ( pNetworkContext->pParams == NULL ) )
     {
-        LogError( ( "Invalid input parameter(s): Arguments cannot be NULL. pNetworkContext=%p, "
-                    "pHostName=%p.",
-                    pNetworkContext,
-                    pHostName ) );
+        LogError( ( "Invalid input parameter(s): Arguments cannot be NULL. pNetworkContext=%p.",
+                    pNetworkContext ) );
         plaintextStatus = PLAINTEXT_TRANSPORT_INVALID_PARAMETER;
     }
     else
@@ -79,17 +75,14 @@ PlaintextTransportStatus_t Plaintext_FreeRTOS_UDP_Connect( NetworkContext_t * pN
         pPlaintextTransportParams = pNetworkContext->pParams;
 
         /* Establish a UDP connection with the server. */
-        socketStatus = Sockets_Udp_Connect( &( pPlaintextTransportParams->socket ),
-                                            pHostName,
-                                            port,
-                                            receiveTimeoutMs,
-                                            sendTimeoutMs );
+        socketStatus = Sockets_Udp_Create( &( pPlaintextTransportParams->socket ),
+                                           receiveTimeoutMs,
+                                           sendTimeoutMs );
 
         /* A non zero status is an error. */
         if( socketStatus != 0 )
         {
-            LogError( ( "Failed to connect to %s with error %d.",
-                        pHostName,
+            LogError( ( "Failed to create UDP socket with error %d.",
                         socketStatus ) );
             plaintextStatus = PLAINTEXT_TRANSPORT_CONNECT_FAILURE;
         }
@@ -100,7 +93,7 @@ PlaintextTransportStatus_t Plaintext_FreeRTOS_UDP_Connect( NetworkContext_t * pN
 
 /*-----------------------------------------------------------*/
 
-PlaintextTransportStatus_t Plaintext_FreeRTOS_UDP_Disconnect( const NetworkContext_t * pNetworkContext )
+PlaintextTransportStatus_t Plaintext_FreeRTOS_UDP_Destroy( const NetworkContext_t * pNetworkContext )
 {
     PlaintextTransportParams_t * pPlaintextTransportParams = NULL;
     PlaintextTransportStatus_t plaintextStatus = PLAINTEXT_TRANSPORT_SUCCESS;
@@ -129,7 +122,9 @@ PlaintextTransportStatus_t Plaintext_FreeRTOS_UDP_Disconnect( const NetworkConte
 
 int32_t Plaintext_FreeRTOS_recvFrom( NetworkContext_t * pNetworkContext,
                                      void * pBuffer,
-                                     size_t bytesToRecv )
+                                     size_t bytesToRecv,
+                                     const char * pHostName,
+                                     uint16_t port )
 {
     PlaintextTransportParams_t * pPlaintextTransportParams = NULL;
     int32_t socketStatus = 1;
@@ -153,9 +148,11 @@ int32_t Plaintext_FreeRTOS_recvFrom( NetworkContext_t * pNetworkContext,
     {
         pPlaintextTransportParams = pNetworkContext->pParams;
 
-        socketStatus = Sockets_Recv( pPlaintextTransportParams->socket,
-                                     pBuffer,
-                                     bytesToRecv );
+        socketStatus = Sockets_RecvFrom( pPlaintextTransportParams->socket,
+                                         pBuffer,
+                                         bytesToRecv,
+                                         pHostName,
+                                         port );
     }
 
     return socketStatus;
@@ -165,7 +162,9 @@ int32_t Plaintext_FreeRTOS_recvFrom( NetworkContext_t * pNetworkContext,
 
 int32_t Plaintext_FreeRTOS_sendTo( NetworkContext_t * pNetworkContext,
                                    const void * pBuffer,
-                                   size_t bytesToSend )
+                                   size_t bytesToSend,
+                                   const char * pHostName,
+                                   uint16_t port )
 {
     PlaintextTransportParams_t * pPlaintextTransportParams = NULL;
     int32_t socketStatus = 0;
@@ -189,9 +188,11 @@ int32_t Plaintext_FreeRTOS_sendTo( NetworkContext_t * pNetworkContext,
     {
         pPlaintextTransportParams = pNetworkContext->pParams;
 
-        socketStatus = Sockets_Send( pPlaintextTransportParams->socket,
-                                     pBuffer,
-                                     bytesToSend );
+        socketStatus = Sockets_SendTo( pPlaintextTransportParams->socket,
+                                       pBuffer,
+                                       bytesToSend,
+                                       pHostName,
+                                       port );
     }
 
     return socketStatus;

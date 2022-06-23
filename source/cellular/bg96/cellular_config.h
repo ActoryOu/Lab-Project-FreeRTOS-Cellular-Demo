@@ -65,11 +65,13 @@
  * cellular module on windows simulator, for example "COM5".
  * #define CELLULAR_COMM_INTERFACE_PORT    "...insert here..."
  */
+#define CELLULAR_COMM_INTERFACE_PORT    "COM30"
 
 /*
  * Default APN for network registartion.
  * #define CELLULAR_APN                    "...insert here..."
  */
+#define CELLULAR_APN                    "internet"
 
 /*
  * PDN context id for cellular network.

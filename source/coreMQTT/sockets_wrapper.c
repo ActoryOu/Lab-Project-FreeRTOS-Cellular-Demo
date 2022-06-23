@@ -129,6 +129,7 @@ static uint64_t getTimeMs( void );
  * @param[in] pCellularSocketContext Cellular socket wrapper context for socket operations.
  * @param[out] buf The data buffer for receiving data.
  * @param[in] len The length of the data buffer
+ * @param[in] pRemoteSocketAddress Address (IP and Port) of the remote socket to receive from.
  *
  * @note This function receives data. It returns when non-zero bytes of data is received,
  * when an error occurs, or when timeout occurs. Receive timeout unit is TickType_t.
@@ -141,7 +142,8 @@ static uint64_t getTimeMs( void );
  */
 static BaseType_t prvNetworkRecvCellular( const cellularSocketWrapper_t * pCellularSocketContext,
                                           uint8_t * buf,
-                                          size_t len );
+                                          size_t len,
+                                          CellularSocketAddress_t * pRemoteSocketAddress );
 
 /**
  * @brief Callback used to inform about the status of socket open.
@@ -259,7 +261,8 @@ static uint64_t getTimeMs( void )
 
 static BaseType_t prvNetworkRecvCellular( const cellularSocketWrapper_t * pCellularSocketContext,
                                           uint8_t * buf,
-                                          size_t len )
+                                          size_t len,
+                                          CellularSocketAddress_t * pRemoteSocketAddress )
 {
     CellularSocketHandle_t cellularSocketHandle = NULL;
     BaseType_t retRecvLength = 0;
@@ -284,7 +287,17 @@ static BaseType_t prvNetworkRecvCellular( const cellularSocketWrapper_t * pCellu
 
     ( void ) xEventGroupClearBits( pCellularSocketContext->socketEventGroupHandle,
                                    SOCKET_DATA_RECEIVED_CALLBACK_BIT );
-    socketStatus = Cellular_SocketRecv( CellularHandle, cellularSocketHandle, buf, len, &recvLength );
+
+    if( pRemoteSocketAddress == NULL )
+    {
+        /* Uses Cellular_SocketRecv for TCP sockets. */
+        socketStatus = Cellular_SocketRecv( CellularHandle, cellularSocketHandle, buf, len, &recvLength );
+    }
+    else
+    {
+        /* Uses Cellular_SocketRecvFrom for UDP sockets. */
+        socketStatus = Cellular_SocketRecvFrom( CellularHandle, cellularSocketHandle, buf, len, &recvLength, CELLULAR_SOCKET_ACCESS_MODE, pRemoteSocketAddress );
+    }
 
     /* Calculate remain recvTimeout. */
     if( recvTimeout != portMAX_DELAY )
@@ -835,7 +848,7 @@ int32_t Sockets_Recv( Socket_t xSocket,
     }
     else
     {
-        retRecvLength = ( BaseType_t ) prvNetworkRecvCellular( pCellularSocketContext, buf, xBufferLength );
+        retRecvLength = ( BaseType_t ) prvNetworkRecvCellular( pCellularSocketContext, buf, xBufferLength, NULL );
     }
 
     return retRecvLength;
@@ -930,17 +943,14 @@ int32_t Sockets_Send( Socket_t xSocket,
 
 /*-----------------------------------------------------------*/
 
-BaseType_t Sockets_Udp_Connect( Socket_t * pUdpSocket,
-                                const char * pHostName,
-                                uint16_t port,
-                                uint32_t receiveTimeoutMs,
-                                uint32_t sendTimeoutMs )
+BaseType_t Sockets_Udp_Create( Socket_t * pUdpSocket,
+                               uint32_t receiveTimeoutMs,
+                               uint32_t sendTimeoutMs )
 {
     CellularSocketHandle_t cellularSocketHandle = NULL;
     cellularSocketWrapper_t * pCellularSocketContext = NULL;
     CellularError_t cellularSocketStatus = CELLULAR_INVALID_HANDLE;
 
-    CellularSocketAddress_t serverAddress = { 0 };
     EventBits_t waitEventBits = 0;
     BaseType_t retConnect = SOCKETS_ERROR_NONE;
     const uint32_t defaultReceiveTimeoutMs = CELLULAR_SOCKET_RECV_TIMEOUT_MS;
@@ -996,11 +1006,6 @@ BaseType_t Sockets_Udp_Connect( Socket_t * pUdpSocket,
     /* Register cellular socket callback function. */
     if( retConnect == SOCKETS_ERROR_NONE )
     {
-        serverAddress.ipAddress.ipAddressType = CELLULAR_IP_ADDRESS_V4;
-        strncpy( serverAddress.ipAddress.ipAddress, pHostName, CELLULAR_IP_ADDRESS_MAX_SIZE );
-        serverAddress.port = port;
-
-        IotLogDebug( "Ip address %s port %d\r\n", serverAddress.ipAddress.ipAddress, serverAddress.port );
         retConnect = prvCellularSocketRegisterCallback( cellularSocketHandle, pCellularSocketContext );
     }
 
@@ -1032,22 +1037,11 @@ BaseType_t Sockets_Udp_Connect( Socket_t * pUdpSocket,
         retConnect = prvSetupSocketRecvTimeout( pCellularSocketContext, pdMS_TO_TICKS( receiveTimeoutMs ) );
     }
 
-    /* Cellular socket connect. */
     if( retConnect == SOCKETS_ERROR_NONE )
     {
-        ( void ) xEventGroupClearBits( pCellularSocketContext->socketEventGroupHandle,
-                                       SOCKET_DATA_RECEIVED_CALLBACK_BIT | SOCKET_OPEN_FAILED_CALLBACK_BIT );
-        cellularSocketStatus = Cellular_SocketConnect( CellularHandle, cellularSocketHandle, CELLULAR_SOCKET_ACCESS_MODE, &serverAddress );
-
-        if( cellularSocketStatus != CELLULAR_SUCCESS )
-        {
-            IotLogError( "Failed to establish new connection. Socket status %d.", cellularSocketStatus );
-            retConnect = SOCKETS_SOCKET_ERROR;
-        }
+        /* No need to wait for connection in UDP. */
+        pCellularSocketContext->ulFlags = pCellularSocketContext->ulFlags | CELLULAR_SOCKET_CONNECT_FLAG;
     }
-
-    /* No need to wait for connection in UDP. */
-    pCellularSocketContext->ulFlags = pCellularSocketContext->ulFlags | CELLULAR_SOCKET_CONNECT_FLAG;
 
     /* Cleanup the socket if any error. */
     if( retConnect != SOCKETS_ERROR_NONE )
@@ -1081,6 +1075,140 @@ BaseType_t Sockets_Udp_Connect( Socket_t * pUdpSocket,
     *pUdpSocket = pCellularSocketContext;
 
     return retConnect;
+}
+
+/*-----------------------------------------------------------*/
+
+int32_t Sockets_SendTo( Socket_t xSocket,
+                        const void * pvBuffer,
+                        size_t xDataLength,
+                        const char * pHostName,
+                        uint16_t port )
+{
+    uint8_t * buf = ( uint8_t * ) pvBuffer;
+    CellularSocketHandle_t cellularSocketHandle = NULL;
+    BaseType_t retSendLength = 0;
+    uint32_t sentLength = 0;
+    CellularError_t socketStatus = CELLULAR_SUCCESS;
+    cellularSocketWrapper_t * pCellularSocketContext = ( cellularSocketWrapper_t * ) xSocket;
+    uint32_t bytesToSend = xDataLength;
+    uint64_t entryTimeMs = getTimeMs();
+    uint64_t elapsedTimeMs = 0;
+    uint32_t sendTimeoutMs = 0;
+    CellularSocketAddress_t serverAddress = { 0 };
+
+    if( pCellularSocketContext == NULL )
+    {
+        IotLogError( "Cellular Sockets_SendTo Invalid xSocket %p", pCellularSocketContext );
+        retSendLength = ( BaseType_t ) SOCKETS_SOCKET_ERROR;
+    }
+    else if( ( ( pCellularSocketContext->ulFlags & CELLULAR_SOCKET_OPEN_FLAG ) == 0U ) ||
+             ( ( pCellularSocketContext->ulFlags & CELLULAR_SOCKET_CONNECT_FLAG ) == 0U ) )
+    {
+        IotLogError( "Cellular Sockets_Send Invalid xSocket flag %p 0x%08x",
+                     pCellularSocketContext, pCellularSocketContext->ulFlags );
+        retSendLength = ( BaseType_t ) SOCKETS_SOCKET_ERROR;
+    }
+    else
+    {
+        cellularSocketHandle = pCellularSocketContext->cellularSocketHandle;
+
+        /* Set peer info for send function */
+        serverAddress.ipAddress.ipAddressType = CELLULAR_IP_ADDRESS_V4;
+        strncpy( serverAddress.ipAddress.ipAddress, pHostName, CELLULAR_IP_ADDRESS_MAX_SIZE );
+        serverAddress.port = port;
+
+        IotLogDebug( "Ip address %s port %d\r\n", serverAddress.ipAddress.ipAddress, serverAddress.port );
+
+        /* Convert ticks to ms delay. */
+        if( ( pCellularSocketContext->sendTimeout >= UINT32_MAX_MS_TICKS ) || ( pCellularSocketContext->sendTimeout >= portMAX_DELAY ) )
+        {
+            /* Check if the ticks cause overflow. */
+            sendTimeoutMs = UINT32_MAX_DELAY_MS;
+        }
+        else
+        {
+            sendTimeoutMs = TICKS_TO_MS( pCellularSocketContext->sendTimeout );
+        }
+
+        /* Loop sending data until data is sent completly or timeout. */
+        while( bytesToSend > 0U )
+        {
+            socketStatus = Cellular_SocketSendTo( CellularHandle,
+                                                  cellularSocketHandle,
+                                                  &buf[ retSendLength ],
+                                                  bytesToSend,
+                                                  &sentLength,
+                                                  CELLULAR_SOCKET_ACCESS_MODE,
+                                                  &serverAddress );
+
+            if( socketStatus == CELLULAR_SUCCESS )
+            {
+                retSendLength = retSendLength + ( BaseType_t ) sentLength;
+                bytesToSend = bytesToSend - sentLength;
+            }
+
+            /* Check socket status or timeout break. */
+            if( ( socketStatus != CELLULAR_SUCCESS ) ||
+                ( _calculateElapsedTime( entryTimeMs, sendTimeoutMs, &elapsedTimeMs ) ) )
+            {
+                if( socketStatus == CELLULAR_SOCKET_CLOSED )
+                {
+                    /* Socket already closed. No data is sent. */
+                    retSendLength = 0;
+                }
+                else if( socketStatus != CELLULAR_SUCCESS )
+                {
+                    retSendLength = ( BaseType_t ) SOCKETS_SOCKET_ERROR;
+                }
+
+                break;
+            }
+        }
+
+        IotLogDebug( "Sockets_Send expect %d write %d", len, sentLength );
+    }
+
+    return retSendLength;
+}
+
+/*-----------------------------------------------------------*/
+
+int32_t Sockets_RecvFrom( Socket_t xSocket,
+                          void * pvBuffer,
+                          size_t xBufferLength,
+                          const char * pHostName,
+                          uint16_t port )
+{
+    cellularSocketWrapper_t * pCellularSocketContext = ( cellularSocketWrapper_t * ) xSocket;
+    uint8_t * buf = ( uint8_t * ) pvBuffer;
+    BaseType_t retRecvLength = 0;
+    CellularSocketAddress_t serverAddress = { 0 };
+
+    if( pCellularSocketContext == NULL )
+    {
+        IotLogError( "Cellular prvNetworkRecv Invalid xSocket %p", pCellularSocketContext );
+        retRecvLength = ( BaseType_t ) SOCKETS_EINVAL;
+    }
+    else if( ( ( pCellularSocketContext->ulFlags & CELLULAR_SOCKET_OPEN_FLAG ) == 0U ) ||
+             ( ( pCellularSocketContext->ulFlags & CELLULAR_SOCKET_CONNECT_FLAG ) == 0U ) )
+    {
+        IotLogError( "Cellular prvNetworkRecv Invalid xSocket flag %p %u",
+                     pCellularSocketContext, pCellularSocketContext->ulFlags );
+        retRecvLength = ( BaseType_t ) SOCKETS_ENOTCONN;
+    }
+    else
+    {
+        serverAddress.ipAddress.ipAddressType = CELLULAR_IP_ADDRESS_V4;
+        strncpy( serverAddress.ipAddress.ipAddress, pHostName, CELLULAR_IP_ADDRESS_MAX_SIZE );
+        serverAddress.port = port;
+
+        IotLogDebug( "Ip address %s port %d\r\n", serverAddress.ipAddress.ipAddress, serverAddress.port );
+
+        retRecvLength = ( BaseType_t ) prvNetworkRecvCellular( pCellularSocketContext, buf, xBufferLength, &serverAddress );
+    }
+
+    return retRecvLength;
 }
 
 /*-----------------------------------------------------------*/

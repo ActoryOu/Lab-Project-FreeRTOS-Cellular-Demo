@@ -66,7 +66,7 @@
  * #define ECHO_SERVER_ENDPOINT   "PLACE_HOLDER"
  */
 #ifndef ECHO_SERVER_ENDPOINT
-    #define ECHO_SERVER_ENDPOINT    "PLACE_HOLDER"
+    #define ECHO_SERVER_ENDPOINT    "ec2-52-195-10-90.ap-northeast-1.compute.amazonaws.com"
 #endif
 
 /**
@@ -142,11 +142,9 @@ bool prvTransportNetworkConnect( void * pNetworkContext )
     PlaintextTransportStatus_t xPlaintextStatus = PLAINTEXT_TRANSPORT_SUCCESS;
 
     /* Attempt to create an UDP connection. */
-    xPlaintextStatus = Plaintext_FreeRTOS_UDP_Connect( pNetworkContext,
-                                                       ECHO_SERVER_ENDPOINT,
-                                                       ECHO_SERVER_PORT,
-                                                       ECHO_SEND_RECV_TIMEOUT_MS,
-                                                       ECHO_SEND_RECV_TIMEOUT_MS );
+    xPlaintextStatus = Plaintext_FreeRTOS_UDP_Create( pNetworkContext,
+                                                      ECHO_SEND_RECV_TIMEOUT_MS,
+                                                      ECHO_SEND_RECV_TIMEOUT_MS );
 
     if( xPlaintextStatus == PLAINTEXT_TRANSPORT_SUCCESS )
     {
@@ -154,7 +152,7 @@ bool prvTransportNetworkConnect( void * pNetworkContext )
     }
     else
     {
-        LogError( ( "Plaintext_FreeRTOS_UDP_Connect return fail, xPlaintextStatus=%d", xPlaintextStatus ) );
+        LogError( ( "Plaintext_FreeRTOS_UDP_Create return fail, xPlaintextStatus=%d", xPlaintextStatus ) );
     }
 
     return xNetStatus;
@@ -165,7 +163,7 @@ bool prvTransportNetworkConnect( void * pNetworkContext )
 static void prvTransportNetworkDisconnect( void * pNetworkContext )
 {
     /* Disconnect the transport network. */
-    Plaintext_FreeRTOS_UDP_Disconnect( pNetworkContext );
+    Plaintext_FreeRTOS_UDP_Destroy( pNetworkContext );
 }
 
 /*-----------------------------------------------------------*/
@@ -196,7 +194,9 @@ static bool prvSendPackets( void * pNetworkContext,
     bool result = false;
     size_t sentByte = 0;
 
-    sentByte = Plaintext_FreeRTOS_sendTo( pNetworkContext, pBuf, size );
+    sentByte = Plaintext_FreeRTOS_sendTo( pNetworkContext, pBuf, size,
+                                          ECHO_SERVER_ENDPOINT,
+                                          ECHO_SERVER_PORT );
 
     if( sentByte == size )
     {
@@ -218,7 +218,9 @@ static bool prvRecvPackets( void * pNetworkContext,
     bool result = false;
     size_t recvByte = 0;
 
-    recvByte = Plaintext_FreeRTOS_recvFrom( pNetworkContext, pBuf, size );
+    recvByte = Plaintext_FreeRTOS_recvFrom( pNetworkContext, pBuf, size,
+                                            ECHO_SERVER_ENDPOINT,
+                                            ECHO_SERVER_PORT );
 
     if( recvByte == size )
     {

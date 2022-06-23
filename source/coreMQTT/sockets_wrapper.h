@@ -134,11 +134,9 @@ int32_t Sockets_Recv( Socket_t xSocket,
                       size_t xBufferLength );
 
 /**
- * @brief Establish a UDP connection to server.
+ * @brief Create UDP socket handler.
  *
  * @param[out] pUdpSocket The output parameter to return the created socket descriptor.
- * @param[in] pHostName Server hostname to connect to.
- * @param[in] pServerInfo Server port to connect to.
  * @param[in] receiveTimeoutMs Timeout (in milliseconds) for transport receive.
  * @param[in] sendTimeoutMs Timeout (in milliseconds) for transport send.
  *
@@ -146,10 +144,54 @@ int32_t Sockets_Recv( Socket_t xSocket,
  *
  * @return Non-zero value on error, 0 on success.
  */
-BaseType_t Sockets_Udp_Connect( Socket_t * pUdpSocket,
-                                const char * pHostName,
-                                uint16_t port,
-                                uint32_t receiveTimeoutMs,
-                                uint32_t sendTimeoutMs );
+BaseType_t Sockets_Udp_Create( Socket_t * pUdpSocket,
+                               uint32_t receiveTimeoutMs,
+                               uint32_t sendTimeoutMs );
+
+/**
+ * @brief Transmit data to the remote socket.
+ *
+ * The socket must have already been created using a call to Sockets_Connect().
+ *
+ * @param[in] xSocket The handle of the sending socket.
+ * @param[in] pvBuffer The buffer containing the data to be sent.
+ * @param[in] xDataLength The length of the data to be sent.
+ * @param[in] pHostName Server hostname to connect to.
+ * @param[in] port Server port to connect to.
+ *
+ * @return
+ * * On success, the number of bytes actually sent is returned.
+ * * If an error occurred, a negative value is returned. @ref SocketsErrors
+ */
+int32_t Sockets_SendTo( Socket_t xSocket,
+                        const void * pvBuffer,
+                        size_t xDataLength,
+                        const char * pHostName,
+                        uint16_t port );
+
+/**
+ * @brief Receive data from a TCP socket.
+ *
+ * The socket must have already been created using a call to Sockets_Connect().
+ *
+ * @param[in] xSocket The handle of the socket from which data is being received.
+ * @param[out] pvBuffer The buffer into which the received data will be placed.
+ * @param[in] xBufferLength The maximum number of bytes which can be received.
+ * pvBuffer must be at least xBufferLength bytes long.
+ * @param[in] pHostName Server hostname to connect to.
+ * @param[in] port Server port to connect to.
+ *
+ * @return
+ * * If the receive was successful then the number of bytes received (placed in the
+ *   buffer pointed to by pvBuffer) is returned.
+ * * If a timeout occurred before data could be received then 0 is returned (timeout
+ *   is set using @ref SOCKETS_SO_RCVTIMEO).
+ * * If an error occurred, a negative value is returned. @ref SocketsErrors
+ */
+int32_t Sockets_RecvFrom( Socket_t xSocket,
+                          void * pvBuffer,
+                          size_t xBufferLength,
+                          const char * pHostName,
+                          uint16_t port );
 
 #endif /* ifndef SOCKETS_WRAPPER_H */
