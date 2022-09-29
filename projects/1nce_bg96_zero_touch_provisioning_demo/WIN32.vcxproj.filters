@@ -13,7 +13,7 @@
     <Filter Include="lib\cellular\include">
       <UniqueIdentifier>{c9d6c832-bf55-409e-8d39-460d4a5cb62f}</UniqueIdentifier>
     </Filter>
-    <Filter Include="lib\cellular\modules">
+    <Filter Include="lib\cellular-modules">
       <UniqueIdentifier>{ab3b24d4-df9b-45e0-8ecc-98915add026b}</UniqueIdentifier>
     </Filter>
     <Filter Include="lib\cellular\common\include">
@@ -22,7 +22,7 @@
     <Filter Include="lib\cellular\common\include\private">
       <UniqueIdentifier>{f8d27fee-6508-497d-a093-d56cdb319fb7}</UniqueIdentifier>
     </Filter>
-    <Filter Include="lib\cellular\modules\bg96">
+    <Filter Include="lib\cellular-modules\bg96">
       <UniqueIdentifier>{fb9bc621-b24a-45ee-9ba9-0c6a3749fad9}</UniqueIdentifier>
     </Filter>
     <Filter Include="lib\coreMQTT">
@@ -87,8 +87,8 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\..\lib\cellular\modules\bg96\cellular_bg96.h">
-      <Filter>lib\cellular\modules\bg96</Filter>
+    <ClInclude Include="..\..\lib\cellular-modules\bg96\cellular_bg96.h">
+      <Filter>lib\cellular-modules\bg96</Filter>
     </ClInclude>
     <ClInclude Include="..\..\lib\coreMQTT\source\include\core_mqtt_config_defaults.h">
       <Filter>lib\coreMQTT\include</Filter>
@@ -531,17 +531,17 @@
     <ClInclude Include="1nce_zero_touch_provisioning.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="..\..\lib\cellular\modules\bg96\cellular_bg96_api.c">
-      <Filter>lib\cellular\modules\bg96</Filter>
+    <ClCompile Include="..\..\lib\cellular-modules\bg96\cellular_bg96_api.c">
+      <Filter>lib\cellular-modules\bg96</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\lib\cellular\modules\bg96\cellular_bg96_urc_handler.c">
-      <Filter>lib\cellular\modules\bg96</Filter>
+    <ClCompile Include="..\..\lib\cellular-modules\bg96\cellular_bg96_urc_handler.c">
+      <Filter>lib\cellular-modules\bg96</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\lib\cellular\modules\bg96\cellular_bg96_wrapper.c">
-      <Filter>lib\cellular\modules\bg96</Filter>
+    <ClCompile Include="..\..\lib\cellular-modules\bg96\cellular_bg96_wrapper.c">
+      <Filter>lib\cellular-modules\bg96</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\lib\cellular\modules\bg96\cellular_bg96.c">
-      <Filter>lib\cellular\modules\bg96</Filter>
+    <ClCompile Include="..\..\lib\cellular-modules\bg96\cellular_bg96.c">
+      <Filter>lib\cellular-modules\bg96</Filter>
     </ClCompile>
     <ClCompile Include="..\..\lib\coreMQTT\source\core_mqtt_serializer.c">
       <Filter>lib\coreMQTT\src</Filter>

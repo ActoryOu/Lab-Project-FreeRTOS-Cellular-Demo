@@ -12,7 +12,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\lib\backoff_algorithm\source\include\backoff_algorithm.h" />
-    <ClInclude Include="..\..\lib\cellular\modules\ThirdParty\Community-Supported-Ports\qgsm\cellular_qgsm.h" />
+    <ClInclude Include="..\..\lib\cellular-modules\ThirdParty\Community-Supported-Ports\qgsm\cellular_qgsm.h" />
     <ClInclude Include="..\..\lib\cellular\source\include\cellular_api.h" />
     <ClInclude Include="..\..\lib\cellular\source\include\cellular_config_defaults.h" />
     <ClInclude Include="..\..\lib\cellular\source\include\cellular_types.h" />
@@ -163,10 +163,10 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\lib\backoff_algorithm\source\backoff_algorithm.c" />
-    <ClCompile Include="..\..\lib\cellular\modules\ThirdParty\Community-Supported-Ports\qgsm\cellular_qgsm.c" />
-    <ClCompile Include="..\..\lib\cellular\modules\ThirdParty\Community-Supported-Ports\qgsm\cellular_qgsm_api.c" />
-    <ClCompile Include="..\..\lib\cellular\modules\ThirdParty\Community-Supported-Ports\qgsm\cellular_qgsm_urc_handler.c" />
-    <ClCompile Include="..\..\lib\cellular\modules\ThirdParty\Community-Supported-Ports\qgsm\cellular_qgsm_wrapper.c" />
+    <ClCompile Include="..\..\lib\cellular-modules\ThirdParty\Community-Supported-Ports\qgsm\cellular_qgsm.c" />
+    <ClCompile Include="..\..\lib\cellular-modules\ThirdParty\Community-Supported-Ports\qgsm\cellular_qgsm_api.c" />
+    <ClCompile Include="..\..\lib\cellular-modules\ThirdParty\Community-Supported-Ports\qgsm\cellular_qgsm_urc_handler.c" />
+    <ClCompile Include="..\..\lib\cellular-modules\ThirdParty\Community-Supported-Ports\qgsm\cellular_qgsm_wrapper.c" />
     <ClCompile Include="..\..\lib\cellular\source\cellular_3gpp_api.c" />
     <ClCompile Include="..\..\lib\cellular\source\cellular_3gpp_urc_handler.c" />
     <ClCompile Include="..\..\lib\cellular\source\cellular_at_core.c" />
@@ -358,7 +358,7 @@
       <ExceptionHandling>false</ExceptionHandling>
       <CompileAs>CompileAsC</CompileAs>
       <DisableSpecificWarnings>4204;4221;4210;4127;4244;4310</DisableSpecificWarnings>
-      <AdditionalIncludeDirectories>.\..\..\lib\cellular\source\include;.\..\..\lib\cellular\source\interface;.\..\..\lib\cellular\source\include\common;.\..\..\lib\cellular\source\include\private;.\..\..\lib\cellular\modules\ThirdParty\Community-Supported-Ports\qgsm;.\..\..\lib\FreeRTOS\portable\MSVC-MingW;.\..\..\lib\FreeRTOS\include;.\..\..\lib\coreMQTT\source\portable;.\..\..\lib\coreMQTT\source\include;.\..\..\lib\coreMQTT\source\interface;.\..\..\lib\ThirdParty\mbedtls\include;.\..\..\lib\backoff_algorithm\source\include;.\..\..\source;.\..\..\source\coreMQTT;.\..\..\source\mbedtls;.\..\..\source\cellular;.\..\..\source\logging;.;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>.\..\..\lib\cellular\source\include;.\..\..\lib\cellular\source\interface;.\..\..\lib\cellular\source\include\common;.\..\..\lib\cellular\source\include\private;.\..\..\lib\cellular-modules\ThirdParty\Community-Supported-Ports\qgsm;.\..\..\lib\FreeRTOS\portable\MSVC-MingW;.\..\..\lib\FreeRTOS\include;.\..\..\lib\coreMQTT\source\portable;.\..\..\lib\coreMQTT\source\include;.\..\..\lib\coreMQTT\source\interface;.\..\..\lib\ThirdParty\mbedtls\include;.\..\..\lib\backoff_algorithm\source\include;.\..\..\source;.\..\..\source\coreMQTT;.\..\..\source\mbedtls;.\..\..\source\cellular;.\..\..\source\logging;.;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <ResourceCompile>
       <PreprocessorDefinitions>_DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
@@ -401,7 +401,7 @@
       <ProgramDataBaseFileName>.\Release/</ProgramDataBaseFileName>
       <WarningLevel>Level3</WarningLevel>
       <SuppressStartupBanner>true</SuppressStartupBanner>
-      <AdditionalIncludeDirectories>..\Common\Utils;..\Common\ethernet\lwip-1.4.0\ports\win32\WinPCap;..\Common\ethernet\lwip-1.4.0\src\include\ipv4;..\Common\ethernet\lwip-1.4.0\src\include;..\..\..\..\..\source\include;..\..\..\..\..\source\portable\MSVC-MingW;..\Common\ethernet\lwip-1.4.0\ports\win32\include;..\Common\Include;.\lwIP_Apps;.;..\..\lib\cellular\modules\sim70x0;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>..\Common\Utils;..\Common\ethernet\lwip-1.4.0\ports\win32\WinPCap;..\Common\ethernet\lwip-1.4.0\src\include\ipv4;..\Common\ethernet\lwip-1.4.0\src\include;..\..\..\..\..\source\include;..\..\..\..\..\source\portable\MSVC-MingW;..\Common\ethernet\lwip-1.4.0\ports\win32\include;..\Common\Include;.\lwIP_Apps;.;..\..\lib\cellular-modules\sim70x0;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <ResourceCompile>
       <PreprocessorDefinitions>NDEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>

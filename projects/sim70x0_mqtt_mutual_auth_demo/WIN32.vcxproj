@@ -12,7 +12,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\lib\backoff_algorithm\source\include\backoff_algorithm.h" />
-    <ClInclude Include="..\..\lib\cellular\modules\ThirdParty\Community-Supported-Ports\sim70x0\cellular_sim70x0.h" />
+    <ClInclude Include="..\..\lib\cellular-modules\ThirdParty\Community-Supported-Ports\sim70x0\cellular_sim70x0.h" />
     <ClInclude Include="..\..\lib\cellular\source\include\cellular_api.h" />
     <ClInclude Include="..\..\lib\cellular\source\include\cellular_config_defaults.h" />
     <ClInclude Include="..\..\lib\cellular\source\include\cellular_types.h" />
@@ -159,10 +159,10 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\lib\backoff_algorithm\source\backoff_algorithm.c" />
-    <ClCompile Include="..\..\lib\cellular\modules\ThirdParty\Community-Supported-Ports\sim70x0\cellular_sim70x0.c" />
-    <ClCompile Include="..\..\lib\cellular\modules\ThirdParty\Community-Supported-Ports\sim70x0\cellular_sim70x0_api.c" />
-    <ClCompile Include="..\..\lib\cellular\modules\ThirdParty\Community-Supported-Ports\sim70x0\cellular_sim70x0_urc_handler.c" />
-    <ClCompile Include="..\..\lib\cellular\modules\ThirdParty\Community-Supported-Ports\sim70x0\cellular_sim70x0_wrapper.c" />
+    <ClCompile Include="..\..\lib\cellular-modules\ThirdParty\Community-Supported-Ports\sim70x0\cellular_sim70x0.c" />
+    <ClCompile Include="..\..\lib\cellular-modules\ThirdParty\Community-Supported-Ports\sim70x0\cellular_sim70x0_api.c" />
+    <ClCompile Include="..\..\lib\cellular-modules\ThirdParty\Community-Supported-Ports\sim70x0\cellular_sim70x0_urc_handler.c" />
+    <ClCompile Include="..\..\lib\cellular-modules\ThirdParty\Community-Supported-Ports\sim70x0\cellular_sim70x0_wrapper.c" />
     <ClCompile Include="..\..\lib\cellular\source\cellular_3gpp_api.c" />
     <ClCompile Include="..\..\lib\cellular\source\cellular_3gpp_urc_handler.c" />
     <ClCompile Include="..\..\lib\cellular\source\cellular_at_core.c" />
@@ -396,7 +396,7 @@
       <ProgramDataBaseFileName>.\Release/</ProgramDataBaseFileName>
       <WarningLevel>Level3</WarningLevel>
       <SuppressStartupBanner>true</SuppressStartupBanner>
-      <AdditionalIncludeDirectories>..\Common\Utils;..\Common\ethernet\lwip-1.4.0\ports\win32\WinPCap;..\Common\ethernet\lwip-1.4.0\src\include\ipv4;..\Common\ethernet\lwip-1.4.0\src\include;..\..\..\..\..\source\include;..\..\..\..\..\source\portable\MSVC-MingW;..\Common\ethernet\lwip-1.4.0\ports\win32\include;..\Common\Include;.\lwIP_Apps;.;..\..\lib\cellular\modules\sim70x0;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>..\Common\Utils;..\Common\ethernet\lwip-1.4.0\ports\win32\WinPCap;..\Common\ethernet\lwip-1.4.0\src\include\ipv4;..\Common\ethernet\lwip-1.4.0\src\include;..\..\..\..\..\source\include;..\..\..\..\..\source\portable\MSVC-MingW;..\Common\ethernet\lwip-1.4.0\ports\win32\include;..\Common\Include;.\lwIP_Apps;.;..\..\lib\cellular-modules\sim70x0;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <ResourceCompile>
       <PreprocessorDefinitions>NDEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>

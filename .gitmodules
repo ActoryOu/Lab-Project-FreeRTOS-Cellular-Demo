@@ -9,7 +9,11 @@
 	url = https://github.com/ARMmbed/mbedtls
 [submodule "lib/cellular"]
 	path = lib/cellular
-	url = https://github.com/FreeRTOS/Lab-Project-FreeRTOS-Cellular-Library
+	url = https://github.com/ActoryOu/FreeRTOS-Cellular-Interface/
+	branch = split
 [submodule "lib/backoff_algorithm"]
 	path = lib/backoff_algorithm
 	url = https://github.com/FreeRTOS/backoffAlgorithm
+[submodule "lib/cellular-modules/ThirdParty/Community-Supported-Ports"]
+	path = lib/cellular-modules/ThirdParty/Community-Supported-Ports
+	url = https://github.com/FreeRTOS/FreeRTOS-Cellular-Interface-Community-Supported-Ports

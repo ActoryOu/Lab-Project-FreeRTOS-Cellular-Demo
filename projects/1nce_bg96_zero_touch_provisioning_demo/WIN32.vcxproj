@@ -12,7 +12,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\lib\backoff_algorithm\source\include\backoff_algorithm.h" />
-    <ClInclude Include="..\..\lib\cellular\modules\bg96\cellular_bg96.h" />
+    <ClInclude Include="..\..\lib\cellular-modules\bg96\cellular_bg96.h" />
     <ClInclude Include="..\..\lib\cellular\source\include\cellular_api.h" />
     <ClInclude Include="..\..\lib\cellular\source\include\cellular_config_defaults.h" />
     <ClInclude Include="..\..\lib\cellular\source\include\cellular_types.h" />
@@ -162,10 +162,10 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\lib\backoff_algorithm\source\backoff_algorithm.c" />
-    <ClCompile Include="..\..\lib\cellular\modules\bg96\cellular_bg96.c" />
-    <ClCompile Include="..\..\lib\cellular\modules\bg96\cellular_bg96_api.c" />
-    <ClCompile Include="..\..\lib\cellular\modules\bg96\cellular_bg96_urc_handler.c" />
-    <ClCompile Include="..\..\lib\cellular\modules\bg96\cellular_bg96_wrapper.c" />
+    <ClCompile Include="..\..\lib\cellular-modules\bg96\cellular_bg96.c" />
+    <ClCompile Include="..\..\lib\cellular-modules\bg96\cellular_bg96_api.c" />
+    <ClCompile Include="..\..\lib\cellular-modules\bg96\cellular_bg96_urc_handler.c" />
+    <ClCompile Include="..\..\lib\cellular-modules\bg96\cellular_bg96_wrapper.c" />
     <ClCompile Include="..\..\lib\cellular\source\cellular_3gpp_api.c" />
     <ClCompile Include="..\..\lib\cellular\source\cellular_3gpp_urc_handler.c" />
     <ClCompile Include="..\..\lib\cellular\source\cellular_at_core.c" />

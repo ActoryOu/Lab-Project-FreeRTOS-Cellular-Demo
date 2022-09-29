@@ -7,7 +7,7 @@
     <Filter Include="lib\cellular">
       <UniqueIdentifier>{6316d7af-fda2-4c3c-bed2-ecb027f2a5a8}</UniqueIdentifier>
     </Filter>
-    <Filter Include="lib\cellular\modules">
+    <Filter Include="lib\cellular-modules">
       <UniqueIdentifier>{ab3b24d4-df9b-45e0-8ecc-98915add026b}</UniqueIdentifier>
     </Filter>
     <Filter Include="lib\coreMQTT">
@@ -76,13 +76,13 @@
     <Filter Include="lib\cellular\source\include\private">
       <UniqueIdentifier>{9a77e3ed-0964-44bf-983b-d1b23695ba24}</UniqueIdentifier>
     </Filter>
-    <Filter Include="lib\cellular\modules\ThirdParty">
+    <Filter Include="lib\cellular-modules\ThirdParty">
       <UniqueIdentifier>{843a1003-9c9a-4d6c-8b4a-04171bc744ad}</UniqueIdentifier>
     </Filter>
-    <Filter Include="lib\cellular\modules\ThirdParty\Community-Supported-Ports">
+    <Filter Include="lib\cellular-modules\ThirdParty\Community-Supported-Ports">
       <UniqueIdentifier>{4e6dca04-dbf9-4b5c-9ab4-f15bd813921c}</UniqueIdentifier>
     </Filter>
-    <Filter Include="lib\cellular\modules\ThirdParty\Community-Supported-Ports\sim70x0">
+    <Filter Include="lib\cellular-modules\ThirdParty\Community-Supported-Ports\sim70x0">
       <UniqueIdentifier>{15c7f3eb-ef5a-4634-8630-e5a551850834}</UniqueIdentifier>
     </Filter>
     <Filter Include="source\logging">
@@ -453,8 +453,8 @@
     <ClInclude Include="..\..\lib\cellular\source\interface\cellular_comm_interface.h">
       <Filter>lib\cellular\source\interface</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\lib\cellular\modules\ThirdParty\Community-Supported-Ports\sim70x0\cellular_sim70x0.h">
-      <Filter>lib\cellular\modules\ThirdParty\Community-Supported-Ports\sim70x0</Filter>
+    <ClInclude Include="..\..\lib\cellular-modules\ThirdParty\Community-Supported-Ports\sim70x0\cellular_sim70x0.h">
+      <Filter>lib\cellular-modules\ThirdParty\Community-Supported-Ports\sim70x0</Filter>
     </ClInclude>
     <ClInclude Include="..\..\lib\ThirdParty\mbedtls\library\check_crypto_config.h">
       <Filter>lib\ThirdParty\mbedtls\include</Filter>
@@ -860,17 +860,17 @@
     <ClCompile Include="..\..\lib\cellular\source\cellular_pktio.c">
       <Filter>lib\cellular\source</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\lib\cellular\modules\ThirdParty\Community-Supported-Ports\sim70x0\cellular_sim70x0.c">
-      <Filter>lib\cellular\modules\ThirdParty\Community-Supported-Ports\sim70x0</Filter>
+    <ClCompile Include="..\..\lib\cellular-modules\ThirdParty\Community-Supported-Ports\sim70x0\cellular_sim70x0.c">
+      <Filter>lib\cellular-modules\ThirdParty\Community-Supported-Ports\sim70x0</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\lib\cellular\modules\ThirdParty\Community-Supported-Ports\sim70x0\cellular_sim70x0_api.c">
-      <Filter>lib\cellular\modules\ThirdParty\Community-Supported-Ports\sim70x0</Filter>
+    <ClCompile Include="..\..\lib\cellular-modules\ThirdParty\Community-Supported-Ports\sim70x0\cellular_sim70x0_api.c">
+      <Filter>lib\cellular-modules\ThirdParty\Community-Supported-Ports\sim70x0</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\lib\cellular\modules\ThirdParty\Community-Supported-Ports\sim70x0\cellular_sim70x0_urc_handler.c">
-      <Filter>lib\cellular\modules\ThirdParty\Community-Supported-Ports\sim70x0</Filter>
+    <ClCompile Include="..\..\lib\cellular-modules\ThirdParty\Community-Supported-Ports\sim70x0\cellular_sim70x0_urc_handler.c">
+      <Filter>lib\cellular-modules\ThirdParty\Community-Supported-Ports\sim70x0</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\lib\cellular\modules\ThirdParty\Community-Supported-Ports\sim70x0\cellular_sim70x0_wrapper.c">
-      <Filter>lib\cellular\modules\ThirdParty\Community-Supported-Ports\sim70x0</Filter>
+    <ClCompile Include="..\..\lib\cellular-modules\ThirdParty\Community-Supported-Ports\sim70x0\cellular_sim70x0_wrapper.c">
+      <Filter>lib\cellular-modules\ThirdParty\Community-Supported-Ports\sim70x0</Filter>
     </ClCompile>
     <ClCompile Include="..\..\lib\ThirdParty\mbedtls\library\constant_time.c">
       <Filter>lib\ThirdParty\mbedtls\library</Filter>
